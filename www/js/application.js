@@ -22,7 +22,7 @@ var Application = {
     var contentScroll = new iScroll('scroll');
 
     gaPlugin = window.plugins.gaPlugin;
-    gaPlugin.init(function(){ alert("Funziona") }, function(){alert("pdsjdfhjs");  }, "UA-36975208-1", 10);
+    gaPlugin.init(function(){ alert("Funziona") }, function(){alert("pdsjdfhjs");  }, "UA-36975208-2", 10);
 
   },
 
