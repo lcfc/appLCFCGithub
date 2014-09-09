@@ -20,6 +20,10 @@ var Application = {
     Application.initApplication;
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
+
+    gaPlugin = window.plugins.gaPlugin;
+    gaPlugin.init(function(){ alert("Funziona") }, function(){alert("pdsjdfhjs");  }, "UA-36975208-1", 10);
+
   },
 
   orientationChange: function(e) {
