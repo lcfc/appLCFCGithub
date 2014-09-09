@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Formazione</title>
+	</head>
+	<body>
+		<div data-role="page" id="classifica-formazione" class="page">
+			<header data-role="header">
+				<a href="#pannello" data-icon="bars">Menu</a>
+				<h1>Formazione</h1>
+			</header>
+			<div data-role="content" id="classifica-formazione-content" class="ui-grid-solo">
+		    <div class="ui-block-a">
+					<div class="ui-body ui-body-d">
+						<form>
+							<fieldset data-role="controlgroup" data-type="horizontal" data-mini="true" id="classifica-formazione-group">
+							<input type="radio" name="anagrafica_squadra" id="classifica-formazione-anagrafica" value="A" />
+							<label for="classifica-formazione-anagrafica">Anagrafica</label>
+							<input type="radio" name="anagrafica_squadra" id="classifica-formazione-associazione" value="S" />
+							<label for="classifica-formazione-associazione">Associazione</label>
+							</fieldset>
+						</form>
+						<div id="classifica-formazione-show">Caricamento classifica formazione...</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

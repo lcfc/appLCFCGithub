@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Risultati</title>
+	</head>
+	<body>
+		<div data-role="page" id="risultati" class="page">
+			<header data-role="header">
+				<a href="#pannello" data-icon="bars">Menu</a>
+				<h1>Risultati</h1>
+				<a id="risultati-refresh" data-icon="refresh">Aggiorna</a>
+			</header>
+			<div data-role="content" id="risultati-content" class="ui-grid-solo">
+		    <div class="ui-block-a">
+					<div class="ui-body ui-body-d">
+						<div id="risultati-show">Caricamento risultati...</div>
+						<div id="campionato-girone"></div>
+						<div class="legenda">
+							<h3>Legenda</h3>
+							<span><strong>RINV:</strong> rinviata;</span>
+              <span><strong>NG:</strong> non giocata;</span>
+              <span><strong>PG:</strong> perdita gara;</span>
+              <span><strong>REC:</strong> recupero;</span>
+              <span><strong>SOSP:</strong> sospesa;</span>
+              <span><strong>VAR:</strong> variazione;</span>
+              <span><strong>ANT:</strong> anticipo;</span>
+              <span><strong>EM:</strong> esclusione manifestazione;</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </body>
+</html>

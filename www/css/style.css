@@ -1,0 +1,147 @@
+body{margin-top:20px;}
+/*generici*/
+.none{display:none;}
+.relative{position:relative;}
+.right{float:right;}
+.left{float:left;}
+.nofloat{float:none;}
+.clear{clear:both;}
+
+.a-left{text-align:left;}
+.a-center{text-align:center;}
+.a-right{text-align:right;}
+.a-justify{text-align:justify;}
+
+.w100{width:100%;}
+.h50{height:50%;}
+.landscape{display:none;}
+.margin-top{margin-top:8px;}
+#error-login{color:#f00;font-weight:bold;}
+
+/*sovrascrivo default*/
+.ui-content {font-size:14px;}
+.ui-body-a{background:#ddd;}
+.ui-panel-content-wrap{border-left:1px solid #bbb;}
+.ui-panel-display-reveal{box-shadow:none;-webkit-box-shadow:none;}
+
+/*home*/
+.logo-home{margin-bottom:0.8em;}
+.show-dati-squadra{padding:5px 0;font-size:24px;font-weight:bold;}
+.show-dati-associazione{font-size:16px;}
+.show-dati-codice{width:78px;height:78px;margin-top:5px;border:1px solid #ccc;background:#0a0;color:#fff;font-size:18px;line-height:36px;font-weight:bold;}
+.show-dati-codice .girone{color:#333;font-size:28px;}
+.show-dati-gara,.show-dati-tesserati,.show-dati-altre-squadre{margin-top:15px;}
+.home-ultimo-incontro, .home-prossimo-incontro{margin-top:8px;}
+.home-ultimo-incontro h2, .home-ultimo-incontro h3, .home-prossimo-incontro h3{margin:0;}
+.show-dati-tesserati em{margin-right:10px;}
+
+/*generico*/
+#scroll{-webkit-overflow-scrolling: touch;}
+
+/*no-internet*/
+#no-internet-content img{text-align:center;}
+
+/*contatto*/
+.contatto .ui-body div{padding:10px;border-bottom:1px solid #ccc;}
+.contatto img{vertical-align:middle;}
+.telefono-email a{margin:0 5px;}
+
+/*settings*/
+a.settings-button{color:#fff;background:#9C0;z-index:0;opacity:1;}
+div.suggerimenti {margin-top:10px;}
+a#show-login{border-color:#a00;background:#c00;color:#fff;}
+a#settings-reset-preferiti{border-color:#a00;background:#c00;color:#fff;}
+
+/*calendario*/
+.giornata-calendario{margin-bottom:0.5em;padding-bottom:0.3em;border-bottom:1px solid #eee;}
+
+.ui-content h2,.ui-content h3{margin-top:0;}
+p{margin:0;line-height:120%;}
+table{border-collapse:collapse;}
+th, td{padding:4px 10px;border-bottom:1px solid #ccc;}
+th:first-child,td:first-child{padding-left:0;}
+th:last-child,td:last-child{padding-right:0;}
+th{color:#0093ea;}
+.evidenziato{
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#dedede)); /* Saf4+, Chrome */
+	background-image: -webkit-linear-gradient(#efefef, #dedede); /* Chrome 10+, Saf5.1+ */
+	background-image:    -moz-linear-gradient(#efefef, #dedede); /* FF3.6 */
+	background-image:     -ms-linear-gradient(#efefef, #dedede); /* IE10 */
+	background-image:      -o-linear-gradient(#efefef, #dedede); /* Opera 11.10+ */
+	background-image:         linear-gradient(#efefef, #dedede);
+}
+.sezioni img{width:80px;height:80px;/*background:#666;*/}
+.abrogato{color:#c00;}
+.in-vigore{display:block;margin:10px 0;}
+#cancella_preferito{display:none;}
+p.code {background:#fff;padding:5px;font-family:courier;}
+ul.showdatisquadra {background:#fff !important;}
+.corsivo {color:#999;font-style:italic;}
+
+
+#show-dati-squadra{margin-bottom:10px;}
+#login-form{margin:10px 0;}
+
+/*listview generico*/
+.ui-li-divider{padding:0.4em 1em;}
+.listview-top{padding-top:8px;}
+.listview-bottom{padding-bottom:8px;}
+
+/*formazione*/
+#classifica-formazione-show{margin-top:15px;}
+
+/*comunicato*/
+#comunicato-lista{margin-top:15px;}
+
+/*referto*/
+ul.referto {list-style-type:none;padding-left:0;margin-left:0;}
+ul.referto li {height:45px;border-bottom:1px solid #e5e5e5;}
+div#referto-box{background:#fff;border:1px solid #ccc;}
+div.referto-data{text-align:center;}
+div#referto-sospesa-rinviata{border:none;border-top:1px solid #ccc;}
+div.referto-ospite,div.referto-locale,div.referto-arbitro,div.referto-voto{height:30px;border:none;}
+div.referto-formazione{border:none;}
+div.referto-formazione img{vertical-align:middle;}
+div.referto-formazione small{color:#999;}
+div.referto-arbitro,div.referto-voto{border-top:1px solid #bbb;border-bottom:1px solid #bbb;height:100%;}
+a.referto-voto{color:#fff;background:#9c0;z-index:0;opacity:1;}
+div.referto-ospite, div.referto-locale{font-size:1.3em;line-height:2.6em;text-align:center}
+div.referto-ospite-gol, div.referto-locale-gol {height:30px;border:none;font-size:3em;font-weight:bold;line-height:0.75em;text-align:center}
+
+/*squadra*/
+.responsabili{margin-top:8px;}
+ul.squadra_responsabili {list-style-type:none;padding-left:0;margin-left:0;}
+ul.squadra_responsabili li {margin-top:5px;padding-bottom:5px;border-bottom:1px solid #e5e5e5;}
+ul.squadra_tesserati {list-style-type:none;padding-left:0;margin-left:0;}
+ul.squadra_tesserati li {height:40px;border-bottom:1px solid #e5e5e5;}
+
+/*anagrafica*/
+#anagrafica img{vertical-align:middle;}
+#anagrafica_foto{margin-right:10px;}
+ul.anagrafica_referti {list-style-type:none;padding-left:0;margin-left:0;}
+ul.anagrafica_referti li {margin-top:5px;padding-bottom:5px;border-bottom:1px solid #e5e5e5;}
+
+/*normativa*/
+a.minus-star {width:24px;height:24px;background-image: url("../images/icon-star-full.png");}
+a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-empty.png");}
+
+
+/* Custom Icon*/
+.ui-icon-classifica {background-image: url("../images/icon-classifica.png");}
+.ui-icon-risultati {background-image: url("../images/icon-risultati.png");}
+.ui-icon-marcatori {background-image: url("../images/icon-marcatori.png");}
+.ui-icon-calendario {background-image: url("../images/icon-calendario.png");}
+.ui-icon-contacts {background-image: url("../images/icon-contacts.png");}
+.ui-icon-credits {background-image: url("../images/icon-credits.png");}
+.ui-icon-settings {background-image: url("../images/icon-settings.png");}
+.ui-icon-index {background-image: url("../images/icon-index.png");}
+.ui-icon-normativa {background-image: url("../images/icon-normativa.png");}
+.ui-icon-preferiti {background-image: url("../images/icon-preferiti.png");}
+.ui-icon-login {background-image: url("../images/icon-login.png");}
+.ui-icon-referti {background-image: url("../images/icon-referti.png");}
+.ui-icon-comunicato {background-image: url("../images/icon-comunicato.png");}
+.ui-icon-arbitro-giudizio {background-image: url("../images/icon-arbitro-giudizio.png");}
+.ui-icon-formazione {background-image: url("../images/icon-formazione.png");}
+.ui-icon-news {background-image: url("../images/icon-news.png");}
+.ui-icon-squadre {background-image: url("../images/icon-squadre.png");}
+

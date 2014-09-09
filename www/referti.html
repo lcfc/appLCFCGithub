@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Ricerca referti</title>
+	</head>
+	<body>
+		<div data-role="page" id="referti" class="page">
+			<header data-role="header" id="referto-header">
+				<a href="#pannello" data-icon="bars">Menu</a>
+				<h1>Ricerca referti</h1>
+			</header>
+			<div data-role="content" id="referti-content"> 
+				<div class="ui-grid-solo">
+			    <div class="ui-block-a">
+						<div class="ui-body ui-body-d">
+							<div class="listview-top">
+			      		<ul data-role="listview" data-filter="true" data-filter-placeholder="Cerca in tutti i referti..." id="referti-autocomplete" class="referti" data-theme="c"></ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="ui-grid-solo">
+			    <div class="ui-block-a">
+						<div class="ui-body ui-body-d">
+						<div class="listview-top">
+							<h3>I referti della tua squadra</h3>
+		      		<ul data-role="listview" id="referti-squadra" class="referti listview-bottom" data-theme="c"></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+  </body>
+</html>

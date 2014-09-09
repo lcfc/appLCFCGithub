@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Impostazioni</title>
+</head>
+<body>
+	<div data-role="page" id="settings" class="page">
+		<header data-role="header">
+			<a href="#pannello" data-icon="bars">Menu</a>
+			<h1>Impostazioni</h1>
+		</header>
+		<div data-role="content" id="settings-content">
+
+			<div id="show-dati-squadra" class="none"></div>
+
+			<div class="ui-grid-solo">
+				<div class="ui-block-a">
+					<div class="ui-body ui-body-d">
+						<h2>Squadra preferita</h2>
+						<div>Inserisci il nome o il codice della tua squadra e selezionalo tra quelli proposti.</div><br/>
+						<div class="listview-bottom">
+							<ul data-role="listview" data-inset="true" data-filter="true" data-filter-placeholder="Cerca squadra..." id="settings-autocomplete"></ul>
+							<br/>
+				    	<a class='go-home' data-role='button'>Torna alla pagina iniziale</a>
+				    	<a data-role='button' id='show-login'>Logout</a>
+							<a data-role="button" id="settings-reset-preferiti">Cancella preferiti</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div id="login-form" class="ui-grid-solo">
+				<div class="ui-block-a">
+					<div class="ui-body ui-body-d">
+						<h2>Login LCFC</h2>
+						<span id="login-frase">Se sei un tesserato della LCFC, inserisci le tue credenziali e ti verrà automaticamente selezionata la tua squadra. Se non sei in possesso delle credenziali segui il video tutorial a questo indirizzo: <a onclick="window.open('http://youtu.be/FJaG1ExFLa4', '_blank', 'location=yes,closebuttoncaption=chiudi')">http://youtu.be/FJaG1ExFLa4</a>. <strong>Le credenziali della squadra (es. 0343) non sono valide!</strong></span>
+						<form>
+							<label for="login-username" class="ui-hidden-accessible">Username</label>
+							<input type="text" name="username" id="login-username" value="" autocomplete="off" placeholder="Username" />
+							<label for="login-password" class="ui-hidden-accessible">Password</label>
+							<input type="password" name="password" id="login-password" value="" autocomplete="off" placeholder="Password" />
+							<a href="#" data-role="button" id="login-submit">Invia</a>
+						</form>
+						<div id="login-riepilogo">
+							<span id="login-descrizione"></span>
+							<ul data-role='listview' data-inset='true' id='login-tesserati'></ul>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<br/><br/><br/><br/><br/><br/>
+
+		</div>
+	</div>
+</body>
+</html>
