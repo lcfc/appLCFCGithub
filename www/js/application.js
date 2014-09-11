@@ -22,8 +22,7 @@ var Application = {
     var contentScroll = new iScroll('scroll');
 
     gaPlugin = window.plugins.gaPlugin;
-    gaPlugin.init(function(){ alert("Funziona") }, function(){alert("pdsjdfhjs");  }, "UA-36975208-2", 10);
-
+    gaPlugin.init(function(){}, function(){}, "UA-36975208-2", 10);
   },
 
   orientationChange: function(e) {
@@ -189,6 +188,8 @@ var Application = {
 				    "<div class='ui-block-a'>"+
 				      "<div class='ui-body ui-body-d referto-top'>"+
 				        Application.votoTopPossibile(referto)+
+                "<div id='top-locale-selected'></div>"+
+                "<div id='top-ospite-selected'></div>"+
   				    "</div>"+
   				  "</div>"+
   			  "</div>"+
@@ -200,16 +201,6 @@ var Application = {
                 "<select name='top-ospite' id='top-ospite'>"+Application.selectTop(referto.formazione_ospite, "ospite")+"</select>"+
                 "<select name='top-ruolo-ospite' id='top-ruolo-ospite'>"+Application.selectRuoloTop()+"</select>"+
                 "<a data-role='button' data-theme='a' id='top-voto-invio'>Invia voto</a>"+
-              "</div>"+
-              "<div id='top-locale-selected'></div>"+
-              "<div id='top-ospite-selected'></div>"+
-            "</div>"+
-          "</div>"+
-  			  "<div id='voto-top-selected' class='ui-grid-solo none'>"+
-  			    "<div class='ui-block-a'>"+
-  			      "<div class='ui-body ui-body-d'>"+
-                "<div id='top-locale-selected'></div>"+
-                "<div id='top-ospite-selected'></div>"+
               "</div>"+
             "</div>"+
           "</div>"+
@@ -290,13 +281,19 @@ var Application = {
           $.mobile.loading('show');
           $.getJSON(url, function(giudizio) {
             if(giudizio.msg == 'ok'){
+              votoLocale = (referto.locale_id in giudizio.top) ? giudizio.top[referto.locale_id].anagrafica : "";
+              votoOspite = (referto.ospite_id in giudizio.top) ? giudizio.top[referto.ospite_id].anagrafica : "";
+              votoRuoloLocale = (referto.locale_id in giudizio.top) ? " - "+giudizio.top[referto.locale_id].ruolo : "";
+              votoRuoloOspite = (referto.ospite_id in giudizio.top) ? " - "+giudizio.top[referto.ospite_id].ruolo : "";
               markup = '<strong>Voto già espresso</strong>'+
-                '<p>Locale: <strong>'+'</strong></p>'+
-                '<p>Ospite: <strong>'+'</strong></p>'+
-              $('#form-voto-top div div').html(markup);
+                '<p>Locale: '+votoLocale+votoRuoloLocale+'</p>'+
+                '<p>Ospite: '+votoOspite+votoRuoloOspite+'</p>';
+              $('.referto-top').html(markup);
             }
-            $('.referto-top').parent().parent().hide();
-            $('#form-voto-top').show();
+            else
+            {
+              $('#form-voto-top').show();
+            }
             $.mobile.loading('hide');
           });
         });
@@ -331,12 +328,10 @@ var Application = {
                 }
                 $('#form-voto-top').hide();
                 $('#top-locale-selected').html(markup);
-                $('#voto-top-selected').show();
               },
               error: function() {
                 $('#form-voto-top').hide();
                 $('#top-locale-selected').html('<strong>Voto locale non inviato a causa di qualche errore</strong>');
-                $('#voto-top-selected').show();
               },
             });
           }
@@ -365,12 +360,10 @@ var Application = {
                 }
                 $('#form-voto-top').hide();
                 $('#top-ospite-selected').html(markup);
-                $('#voto-top-selected').show();
               },
               error: function() {
                 $('#form-voto-top').hide();
                 $('#top-ospite-selected').html('<strong>Voto ospite non inviato a causa di qualche errore</strong>');
-                $('#voto-top-selected').show();
               },
             });
           }
@@ -1826,7 +1819,7 @@ var Application = {
 
 Application.initialize();
 
-$(document).on('pageshow','.page',function() {Application.initMenu();Application.setStatistichePagine();});
+$(document).on('pageshow','.page',function() {Application.initMenu();Application.setStatistichePagine();gaPlugin.trackPage(function(){}, function(){}, $.mobile.path.getLocation());});
 $(document).on('pageinit','#index',function() {Application.initIndex();});
 $(document).on('pageshow','#home',function() {Application.initIndex();});
 

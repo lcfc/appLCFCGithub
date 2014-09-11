@@ -104,6 +104,7 @@ div.referto-formazione{border:none;}
 div.referto-formazione img{vertical-align:middle;}
 div.referto-formazione small{color:#999;}
 div.referto-arbitro,div.referto-voto{border-top:1px solid #bbb;border-bottom:1px solid #bbb;height:100%;}
+div.referto-top{border:0;border-bottom:1px solid #bbb;}
 a.referto-voto{color:#fff;background:#9c0;z-index:0;opacity:1;}
 div.referto-ospite, div.referto-locale{font-size:1.3em;line-height:2.6em;text-align:center}
 div.referto-ospite-gol, div.referto-locale-gol {height:30px;border:none;font-size:3em;font-weight:bold;line-height:0.75em;text-align:center}
