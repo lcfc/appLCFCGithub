@@ -283,8 +283,8 @@ var Application = {
             if(giudizio.msg == 'ok'){
               votoLocale = (referto.locale_id in giudizio.top) ? giudizio.top[referto.locale_id].anagrafica : "";
               votoOspite = (referto.ospite_id in giudizio.top) ? giudizio.top[referto.ospite_id].anagrafica : "";
-              votoRuoloLocale = (referto.locale_id in giudizio.top) ? " - "+giudizio.top[referto.locale_id].ruolo : "";
-              votoRuoloOspite = (referto.ospite_id in giudizio.top) ? " - "+giudizio.top[referto.ospite_id].ruolo : "";
+              votoRuoloLocale = (referto.locale_id in giudizio.top && giudizio.top[referto.locale_id].ruolo != "") ? " - "+giudizio.top[referto.locale_id].ruolo : "";
+              votoRuoloOspite = (referto.ospite_id in giudizio.top && giudizio.top[referto.ospite_id].ruolo != "") ? " - "+giudizio.top[referto.ospite_id].ruolo : "";
               markup = '<strong>Voto già espresso</strong>'+
                 '<p>Locale: '+votoLocale+votoRuoloLocale+'</p>'+
                 '<p>Ospite: '+votoOspite+votoRuoloOspite+'</p>';
@@ -313,7 +313,7 @@ var Application = {
                 squadra_id: referto.locale_id,
                 giudicante_id: localStorage.getItem('anagrafica_id'),
                 cellulare: MD5(cellulare), 
-                ruolo: ruoloLocale,
+                ruolo_id: ruoloLocale,
                 secret: MD5(MD5(cellulare)+secret),
               },
               type: 'post',
@@ -322,16 +322,18 @@ var Application = {
               success: function(data) {
                 if(data.msg == 'ok')
                 {
-                  markup = '<p>Locale: <strong>'+$('#top-locale option:selected').text()+'</strong></p>';
+                  $('#button-voto-top').hide();
+                  ruolo = $('#top-ruolo-locale option:selected').val() > 0 ? ' - '+$('#top-ruolo-locale option:selected').text() : '';
+                  markup = '<p>Locale: '+$('#top-locale option:selected').text()+ruolo+'</p>';
                 } else {
-                  markup = '<strong>Voto locale non inviato a causa di qualche errore</strong>';
+                  markup = 'Voto locale non inviato a causa di qualche errore';
                 }
                 $('#form-voto-top').hide();
                 $('#top-locale-selected').html(markup);
               },
               error: function() {
                 $('#form-voto-top').hide();
-                $('#top-locale-selected').html('<strong>Voto locale non inviato a causa di qualche errore</strong>');
+                $('#top-locale-selected').html('Voto locale non inviato a causa di qualche errore');
               },
             });
           }
@@ -345,7 +347,7 @@ var Application = {
                 squadra_id: referto.ospite_id,
                 giudicante_id: localStorage.getItem('anagrafica_id'),
                 cellulare: MD5(cellulare), 
-                ruolo: ruoloOspite,
+                ruolo_id: ruoloOspite,
                 secret: MD5(MD5(cellulare)+secret),
               },
               type: 'post',
@@ -354,16 +356,18 @@ var Application = {
               success: function(data) {
                 if(data.msg == 'ok')
                 {
-                  markup = '<p>Ospite: <strong>'+$('#top-ospite option:selected').text()+'</strong></p>';
+                  $('#button-voto-top').hide();
+                  ruolo = $('#top-ruolo-ospite option:selected').val() > 0 ? ' - '+$('#top-ruolo-ospite option:selected').text() : '';
+                  markup = '<p>Ospite: '+$('#top-ospite option:selected').text()+ruolo+'</p>';
                 } else {
-                  markup = '<strong>Voto ospite non inviato a causa di qualche errore</strong>';
+                  markup = 'Voto ospite non inviato a causa di qualche errore';
                 }
                 $('#form-voto-top').hide();
                 $('#top-ospite-selected').html(markup);
               },
               error: function() {
                 $('#form-voto-top').hide();
-                $('#top-ospite-selected').html('<strong>Voto ospite non inviato a causa di qualche errore</strong>');
+                $('#top-ospite-selected').html('Voto ospite non inviato a causa di qualche errore');
               },
             });
           }
@@ -1819,7 +1823,7 @@ var Application = {
 
 Application.initialize();
 
-$(document).on('pageshow','.page',function() {Application.initMenu();Application.setStatistichePagine();gaPlugin.trackPage(function(){}, function(){}, $.mobile.path.getLocation());});
+$(document).on('pageshow','.page',function() {Application.initMenu();Application.setStatistichePagine();/*gaPlugin.trackPage(function(){}, function(){}, $.mobile.path.getLocation());*/});
 $(document).on('pageinit','#index',function() {Application.initIndex();});
 $(document).on('pageshow','#home',function() {Application.initIndex();});
 
