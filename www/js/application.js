@@ -1830,6 +1830,7 @@ Application.initialize();
 
 $(document).on('pageshow','.page',function() {Application.initMenu();
   Application.setStatistichePagine();
+  if( typeof window.gaPlugin  != "undefined")
     window.gaPlugin.trackPage(function(){}, function(){}, $.mobile.path.getLocation());
   });
 $(document).on('pageinit','#index',function() {Application.initIndex();});
