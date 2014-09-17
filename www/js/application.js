@@ -14,9 +14,9 @@ var Application = {
   },
 
   onDeviceReady: function() {
-    if (window.device.platform === 'iOS' && parseFloat(window.device.version) === 7.0) {
+    /*if (window.device.platform === 'iOS' && parseFloat(window.device.version) === 7.0) {
       StatusBar.overlaysWebView(false);
-    }
+    }*/
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
     window.gaInterval = setInterval(function(){
