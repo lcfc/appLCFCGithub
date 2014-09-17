@@ -24,6 +24,9 @@ body{margin-top:20px;}
 .ui-panel-content-wrap{border-left:1px solid #bbb;}
 .ui-panel-display-reveal{box-shadow:none;-webkit-box-shadow:none;}
 
+/*pannello*/
+#pannello a{font-weight:normal;}
+
 /*home*/
 .logo-home{margin-bottom:0.8em;}
 .show-dati-squadra{padding:5px 0;font-size:24px;font-weight:bold;}
@@ -83,7 +86,7 @@ ul.showdatisquadra {background:#fff !important;}
 #login-form{margin:10px 0;}
 
 /*listview generico*/
-.ui-li-divider{padding:0.4em 1em;}
+.ui-li-divider{padding:0 1em;}
 .listview-top{padding-top:8px;}
 .listview-bottom{padding-bottom:8px;}
 

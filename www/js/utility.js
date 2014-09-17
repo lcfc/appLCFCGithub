@@ -1,5 +1,5 @@
-//var urlGestionale = "http://gestione.lcfc.it/gestionale.php/";
-var urlGestionale = "http://lcfc/gestionale.php/";
+var urlGestionale = "http://gestione.lcfc.it/gestionale.php/";
+//var urlGestionale = "http://lcfc/gestionale.php/";
 var giorni_settimana = ['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì','Sabato','Domenica'];
 var lettere = ['', 'bis', 'ter', 'quater', 'quinquies', 'sexies', 'septies', 'octies', 'novies', 'decies'];
 var secret = 'J8|tw&2ZpEyyB*#UHCB|%*q0x(R~T%F3lO8eZW#k[65OenAk^]S1|,5F,QqX:<D.';
