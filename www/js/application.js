@@ -20,15 +20,13 @@ var Application = {
     }
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
-    gaInterval = setInterval(function(){
-      if ( typeof window.plugins.gaPlugin != "undefined" ){
-        gaPlugin = window.plugins.gaPlugin;
-        gaPlugin.init(function(){}, function(){}, "UA-36975208-2", 10);  
-        clearInterval(gaInterval);
-        alert(" gaPlugin esiste ");
-      }
+    /* window.gaInterval = setInterval(function(){
+      if ( typeof window.plugins.gaPlugin != "undefined" ){ */
+        window.gaPlugin = window.plugins.gaPlugin;
+        window.gaPlugin.init(function(){}, function(){}, "UA-36975208-2", 10);
+      //}
       
-    }, 250);
+    //}, 250);
     
   },
 
@@ -1832,11 +1830,8 @@ Application.initialize();
 
 $(document).on('pageshow','.page',function() {Application.initMenu();
   Application.setStatistichePagine();
-  if ( typeof gaPlugin != "undefined"  )
-    gaPlugin.trackPage(function(){}, function(){}, $.mobile.path.getLocation());
-  else
-    alert("Non funziona!");
-});
+    window.gaPlugin.trackPage(function(){}, function(){}, $.mobile.path.getLocation());
+  });
 $(document).on('pageinit','#index',function() {Application.initIndex();});
 $(document).on('pageshow','#home',function() {Application.initIndex();});
 
