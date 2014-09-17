@@ -14,19 +14,19 @@ var Application = {
   },
 
   onDeviceReady: function() {
-    alert("Deviceready");
     if (window.device.platform === 'iOS' && parseFloat(window.device.version) === 7.0) {
       StatusBar.overlaysWebView(false);
     }
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
-    /* window.gaInterval = setInterval(function(){
-      if ( typeof window.plugins.gaPlugin != "undefined" ){ */
+    window.gaInterval = setInterval(function(){
+      if ( typeof window.plugins.gaPlugin != "undefined" ){
         window.gaPlugin = window.plugins.gaPlugin;
         window.gaPlugin.init(function(){}, function(){}, "UA-36975208-2", 10);
-      //}
+        clearInterval(window.gaInterval);
+      }
       
-    //}, 250);
+    }, 250);
     
   },
 
