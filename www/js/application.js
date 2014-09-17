@@ -1823,7 +1823,13 @@ var Application = {
 
 Application.initialize();
 
-$(document).on('pageshow','.page',function() {Application.initMenu();Application.setStatistichePagine();/*gaPlugin.trackPage(function(){}, function(){}, $.mobile.path.getLocation());*/});
+$(document).on('pageshow','.page',function() {Application.initMenu();
+  Application.setStatistichePagine();
+  if ( typeof gaPlugin != "undefined"  )
+    gaPlugin.trackPage(function(){}, function(){}, $.mobile.path.getLocation());
+  else
+    alert("Non funziona!");
+});
 $(document).on('pageinit','#index',function() {Application.initIndex();});
 $(document).on('pageshow','#home',function() {Application.initIndex();});
 
