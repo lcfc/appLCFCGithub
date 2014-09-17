@@ -14,10 +14,10 @@ var Application = {
   },
 
   onDeviceReady: function() {
+    alert("Deviceready");
     if (window.device.platform === 'iOS' && parseFloat(window.device.version) === 7.0) {
       StatusBar.overlaysWebView(false);
     }
-    Application.initApplication;
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
 
