@@ -20,9 +20,16 @@ var Application = {
     }
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
-
-    gaPlugin = window.plugins.gaPlugin;
-    gaPlugin.init(function(){}, function(){}, "UA-36975208-2", 10);
+    gaInterval = setInterval(function(){
+      if ( typeof window.plugins.gaPlugin != "undefined" ){
+        gaPlugin = window.plugins.gaPlugin;
+        gaPlugin.init(function(){}, function(){}, "UA-36975208-2", 10);  
+        clearInterval(gaInterval);
+        alert(" gaPlugin esiste ");
+      }
+      
+    }, 250);
+    
   },
 
   orientationChange: function(e) {
