@@ -32,6 +32,6 @@
     <preference name="android-installLocation" value="auto" />
 		
 		<icon src="icon.png" />
-		<gap:splash src="splash.png" />
+		<gap:splash src="res/screen/ios/Default-568h@2x~iphone.png" gap:platform="ios" width="640" height="1136" />
 
 </widget>
