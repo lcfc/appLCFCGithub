@@ -15,6 +15,7 @@ var Application = {
 
   onDeviceReady: function() {
     if (window.device.platform === 'iOS' && parseFloat(window.device.version) >= 7.0) {
+      alert('ios 7+');
       $('body').css('margin-top', '20px');
     }
     Application.orientationChange();
