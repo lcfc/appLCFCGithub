@@ -15,10 +15,8 @@ var Application = {
 
   onDeviceReady: function() {
     alert(JSON.stringify(window.device));
-    if (window.device.platform == 'iOS' && parseFloat(window.device.version) >= 7.0) {
-      alert('marginTop');
-      $('body').css('margin-top', '20px');
-    }
+    $('html').addClass(window.device.platform,window.device.version);
+        alert($('html').attr('class'));
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
     window.gaInterval = setInterval(function(){
