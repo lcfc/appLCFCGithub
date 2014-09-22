@@ -14,13 +14,7 @@ var Application = {
   },
 
   onDeviceReady: function() {
-    if (window.device.platform === 'iOS' && parseFloat(window.device.version) >= 7.0) {
-      alert('ios 7+');
-      $('body').css('margin-top', '20px');
-    } else
-    {
-      alert('no ios 7-');
-    }
+  alert(window.navigator);
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
     window.gaInterval = setInterval(function(){
