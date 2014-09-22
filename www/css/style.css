@@ -149,3 +149,7 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
 .ui-icon-news {background-image: url("../images/icon-news.png");}
 .ui-icon-squadre {background-image: url("../images/icon-squadre.png");}
 
+
+.iOS.8\.0,.iOS.8\.0 .ui-header  {
+  margin-top:20px;
+}
