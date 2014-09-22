@@ -14,7 +14,7 @@ var Application = {
   },
 
   onDeviceReady: function() {
-  alert(window.navigator.userAgent);
+  alert(JSON.stringify(window.device));
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
     window.gaInterval = setInterval(function(){
