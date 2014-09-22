@@ -1829,9 +1829,11 @@ var Application = {
 Application.initialize();
 
 $(document).on('pageshow','.page',function() {Application.initMenu();
+  page = $.mobile.path.getLocation().replace($.mobile.path.getDocumentBase(),'');
+  if(page == "") page = "home.html";
   Application.setStatistichePagine();
   if( typeof window.gaPlugin  != "undefined")
-    window.gaPlugin.trackPage(function(){}, function(){}, $.mobile.path.getLocation());
+    window.gaPlugin.trackPage(function(){}, function(){}, page);
   });
 $(document).on('pageinit','#index',function() {Application.initIndex();});
 $(document).on('pageshow','#home',function() {Application.initIndex();});
