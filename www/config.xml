@@ -16,6 +16,5 @@
 		<preference name="phonegap-version" value="3.5.0" />
 
 		<icon src="icon.png" />
-		<gap:splash src="splash.png" />
 
 </widget>
