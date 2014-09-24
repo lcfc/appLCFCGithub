@@ -15,7 +15,6 @@ var Application = {
 
   onDeviceReady: function() {
     Application.orientationChange();
-    StatusBar.show();
     var contentScroll = new iScroll('scroll');
     window.gaInterval = setInterval(function(){
       if ( typeof window.plugins.gaPlugin != "undefined" ){
