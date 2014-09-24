@@ -40,7 +40,7 @@
 		<gap:splash src="res/screen/ios/Default~iphone.png" gap:platform="ios" width="320" height="480" />
 		<gap:splash src="res/screen/ios/Default@2x~iphone.png" gap:platform="ios" width="640" height="960" />
 		<!-- iPhone 5 / iPod Touch (5th Generation) -->
-		<gap:splash src="res/screen/ios/Default-568h@2x.png" gap:platform="ios" width="640" height="1136" />
+		<gap:splash src="res/screen/ios/Default-568h@2x~iphone.png" gap:platform="ios" width="640" height="1136" />
 		<!-- iPad -->
 		<gap:splash src="res/screen/ios/screen-ipad-portrait-768-1024.png" gap:platform="ios" width="768" height="1024" />
 		<gap:splash src="res/screen/ios/screen-ipad-landscape-1024-768.png" gap:platform="ios" width="1024" height="768" />
