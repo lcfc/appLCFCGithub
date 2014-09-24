@@ -14,8 +14,8 @@ var Application = {
   },
 
   onDeviceReady: function() {
-    alert(JSON.stringify(window.device));
     Application.orientationChange();
+    StatusBar.hide();
     var contentScroll = new iScroll('scroll');
     window.gaInterval = setInterval(function(){
       if ( typeof window.plugins.gaPlugin != "undefined" ){
