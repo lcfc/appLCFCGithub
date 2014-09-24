@@ -149,4 +149,10 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
 .ui-icon-news {background-image: url("../images/icon-news.png");}
 .ui-icon-squadre {background-image: url("../images/icon-squadre.png");}
 
-.ios7{padding-top:20px;}
+.ios7 .ui-header {
+    margin-top: 20px;
+    position: relative;
+}
+.ios7 {
+    padding-top: 20px;
+}
