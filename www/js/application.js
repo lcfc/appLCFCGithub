@@ -24,7 +24,6 @@ var Application = {
       }
       
     }, 250);
-    
   },
 
   orientationChange: function(e) {
