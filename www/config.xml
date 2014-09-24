@@ -34,7 +34,7 @@
     <preference name="android-minSdkVersion" value="10" />
     <preference name="android-installLocation" value="auto" />
 
-		<preference name="StatusBarOverlaysWebView" value="true" />
+		<preference name="StatusBarOverlaysWebView" value="false" />
 		<preference name="StatusBarBackgroundColor" value="#0093ea" />
 
 		<icon src="icon.png" />
