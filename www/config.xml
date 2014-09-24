@@ -11,7 +11,8 @@
     <content src="index.html" />
 
 		<gap:plugin name="com.adobe.plugins.GAPlugin" version="2.3.1" />
-		<gap:plugin name="org.apache.cordova.core.Device"/>
+		<gap:plugin name="org.apache.cordova.device"/>
+    <gap:plugin name="org.apache.cordova.statusbar" version="0.1.4" />
 
 		<feature name="http://api.phonegap.com/1.0/device" />
 		<preference name="phonegap-version" value="3.5.0" />
@@ -33,6 +34,8 @@
     <preference name="android-minSdkVersion" value="10" />
     <preference name="android-installLocation" value="auto" />
 		
+    <preference name="StatusBarOverlaysWebView" value="true" />
+
 		<icon src="icon.png" />
 		<gap:splash src="res/screen/ios/Default-568h@2x~iphone.png" gap:platform="ios" width="640" height="1136" />
 
