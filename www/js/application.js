@@ -14,6 +14,8 @@ var Application = {
   },
 
   onDeviceReady: function() {
+    version = parseFloat(window.device.version) >= 7.0 ? "ios7" : "";
+    $('html').addClass(version);
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
     window.gaInterval = setInterval(function(){
@@ -24,6 +26,7 @@ var Application = {
       }
       
     }, 250);
+    
   },
 
   orientationChange: function(e) {
