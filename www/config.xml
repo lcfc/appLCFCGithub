@@ -35,7 +35,6 @@
     <preference name="android-installLocation" value="auto" />
 
 		<preference name="StatusBarOverlaysWebView" value="false" />
-		<preference name="StatusBarBackgroundColor" value="#000000" />
 
 		<icon src="icon.png" />
 		<gap:splash src="res/screen/ios/Default-568h@2x~iphone.png" gap:platform="ios" width="640" height="1136" />
