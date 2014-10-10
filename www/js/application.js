@@ -1824,6 +1824,7 @@ var Application = {
   },
 
   onCameraSuccess: function(imageURI) {
+    alert('ciao');
     $("#foto-anteprima").attr("src", imageURI).css({width: "128px", height: "128px"});
   },
 
@@ -1876,7 +1877,7 @@ $(document).on('pageshow','#news-singola',function() {Application.initNewsSingol
 $(document).on('pageinit','#settings',function() {Application.initSettings();});
 
 // foto
-$("#foto-scatta").on("tap", function() {navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError);});
+$("#foto-scatta").on("click,tap", function() {navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError);});
 
 
 // swipe
