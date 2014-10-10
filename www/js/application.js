@@ -1823,6 +1823,13 @@ var Application = {
     $.get('menu.html',function(data){$(":jqmData(role=page)").append(data).trigger('create');});
   },
 
+  onCameraSuccess: function(imageURI) {
+    $("#fotoAnteprima").attr("src", imageURI).css({width: "128px", height: "128px"});
+  },
+
+  onCameraError: function(errorMessage) {
+    navigator.notification.alert(errorMessage, function() {}, "Errore");
+  },
 };
 
 Application.initialize();
@@ -1867,6 +1874,10 @@ $(document).on('pageshow','#news-singola',function() {Application.initNewsSingol
 
 // settings
 $(document).on('pageinit','#settings',function() {Application.initSettings();});
+
+// foto
+$("#foto").on("tap", function() {navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError);});
+
 
 // swipe
 $(document).on('swipeleft','#classifica',function() {$.mobile.changePage('risultati.html');});
