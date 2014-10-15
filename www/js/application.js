@@ -1834,13 +1834,13 @@ var Application = {
         targetHeight: 100,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: true };);
+        saveToPhotoAlbum: true });
     });
   }, //foto fine
 
 
   onCameraSuccess: function(imageURI) {
-    $("#foto-anteprime").append("<img src='".imageURI."' />");
+    $("#foto-anteprime").append("<img src='"+imageURI+"' />");
   },
 
   onCameraError: function(errorMessage) {
