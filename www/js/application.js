@@ -1823,8 +1823,16 @@ var Application = {
     $.get('menu.html',function(data){$(":jqmData(role=page)").append(data).trigger('create');});
   },
 
+
+//foto
+  initFoto: function() {
+    $("#foto").on("click", "#foto-scatta", function() {
+      navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError);
+    });
+  }, //foto fine
+
+
   onCameraSuccess: function(imageURI) {
-    alert('ciao');
     $("#foto-anteprima").attr("src", imageURI).css({width: "128px", height: "128px"});
   },
 
@@ -1877,7 +1885,7 @@ $(document).on('pageshow','#news-singola',function() {Application.initNewsSingol
 $(document).on('pageinit','#settings',function() {Application.initSettings();});
 
 // foto
-$("#foto-scatta").on("click,tap", function() {navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError);});
+$(document).on('pageshow','#foto',function() {Application.initFoto();});
 
 
 // swipe
