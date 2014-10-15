@@ -1827,13 +1827,20 @@ var Application = {
 //foto
   initFoto: function() {
     $("#foto").on("click", "#foto-scatta", function() {
-      navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError);
+      navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
+        quality : 80,
+        allowEdit : true,
+        targetWidth: 100,
+        targetHeight: 100,
+        correctOrientation: true,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: true };);
     });
   }, //foto fine
 
 
   onCameraSuccess: function(imageURI) {
-    $("#foto-anteprima").attr("src", imageURI).css({width: "128px", height: "128px"});
+    $("#foto-anteprime").append("<img src='".imageURI."' />");
   },
 
   onCameraError: function(errorMessage) {
