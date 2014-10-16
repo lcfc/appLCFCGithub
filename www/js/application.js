@@ -1852,8 +1852,8 @@ var Application = {
       fileUrl = $("#foto-anteprime img").attr("src");
       alert(fileUrl)
 
-      // var ft = new FileTransfer();
-      // ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.OnFailUploadFile);
+      var ft = new FileTransfer();
+      ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
     });
   }, //foto fine
 
