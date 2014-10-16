@@ -1832,6 +1832,8 @@ var Application = {
         quality : 80,
         allowEdit : true,
         correctOrientation: true,
+        targetWidth: 100,
+        targetHeight: 100,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true });
     });
