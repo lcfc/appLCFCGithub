@@ -1831,8 +1831,6 @@ var Application = {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality : 80,
         allowEdit : true,
-        targetWidth: 100,
-        targetHeight: 100,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true });
@@ -1840,37 +1838,33 @@ var Application = {
 
     //invio foto
     $("#foto").on("click", "#foto-invia", function() {
-      var win = function (r) {
-        alert(JSON.stringify(r));
-        console.log("Code = " + r.responseCode);
-        console.log("Response = " + r.response);
-        console.log("Sent = " + r.bytesSent);
-      }
 
-      var fail = function (error) {
-        alert("An error has occurred: Code = " + error.code);
-        console.log("upload error source " + error.source);
-        console.log("upload error target " + error.target);
-      }
-
-      var options = new FileUploadOptions();
-      options.fileKey = "file";
-      options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-      options.mimeType = "text/plain";
-
-      var params = {};
-      params.value1 = "test";
-      params.value2 = "param";
-
-      options.params = params;
+      // var options = new FileUploadOptions();
+      // options.fileKey = "file";
+      // options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+      // options.mimeType = "text/plain";
+      // 
+      // var params = {};
+      // params.value1 = "test";
+      // params.value2 = "param";
+      // 
+      // options.params = params;
 
       var ft = new FileTransfer();
       fileUrl = $("#foto-anteprime img").attr("src");
       alert(fileUrl)
-      ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), win, fail, options);
+      ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.OnFailUploadFile);
     });
   }, //foto fine
 
+
+  onUploadFile: function (r) {
+    alert(JSON.stringify(r));
+  },
+
+  onFailUploadFile: function (error) {
+    alert(JSON.stringify(error));
+  }
 
   onCameraSuccess: function(imageURI) {
     $("#foto-anteprime").append("<img src='"+imageURI+"' />");
