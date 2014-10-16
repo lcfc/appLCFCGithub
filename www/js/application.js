@@ -1864,7 +1864,7 @@ var Application = {
 
   onFailUploadFile: function (error) {
     alert(JSON.stringify(error));
-  }
+  },
 
   onCameraSuccess: function(imageURI) {
     $("#foto-anteprime").append("<img src='"+imageURI+"' />");
