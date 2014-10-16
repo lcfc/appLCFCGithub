@@ -1846,14 +1846,14 @@ var Application = {
       // options.params = params;
       $("#foto-anteprime img").each(function(i) {
         fileUrl = $(this).attr("src");
-
-        var options = new FileUploadOptions();
-        options.fileKey = "file";
-        options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-        options.mimeType = "image/jpeg";
+alert(fileUrl);
+        // var options = new FileUploadOptions();
+        // options.fileKey = "file";
+        // options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+        // options.mimeType = "image/jpeg";
 
         var ft = new FileTransfer();
-        ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
+        ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
       });
 
     });
