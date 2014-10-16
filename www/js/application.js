@@ -1846,7 +1846,7 @@ var Application = {
       // options.params = params;
       $("#foto-anteprime img").each(function(i) {
         fileUrl = $(this).attr("src");
-alert(fileUrl);
+
         // var options = new FileUploadOptions();
         // options.fileKey = "file";
         // options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
@@ -1855,6 +1855,10 @@ alert(fileUrl);
         var ft = new FileTransfer();
         ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
       });
+
+    $("foto-anteprime").on("click", "img", function(){
+      $(this).toggleClass("image-selected");
+    })
 
     });
   }, //foto fine

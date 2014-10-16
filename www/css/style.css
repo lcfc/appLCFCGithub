@@ -129,6 +129,8 @@ ul.anagrafica_referti li {margin-top:5px;padding-bottom:5px;border-bottom:1px so
 a.minus-star {width:24px;height:24px;background-image: url("../images/icon-star-full.png");}
 a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-empty.png");}
 
+/*foto*/
+.image-selected{background:url("../images/icon-star-full.png") no-repeat top right;}
 
 /* Custom Icon*/
 .ui-icon-classifica {background-image: url("../images/icon-classifica.png");}
