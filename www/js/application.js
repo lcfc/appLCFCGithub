@@ -1849,11 +1849,11 @@ var Application = {
       // params.value2 = "param";
       // 
       // options.params = params;
-
-      var ft = new FileTransfer();
       fileUrl = $("#foto-anteprime img").attr("src");
       alert(fileUrl)
-      ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.OnFailUploadFile);
+
+      // var ft = new FileTransfer();
+      // ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.OnFailUploadFile);
     });
   }, //foto fine
 
