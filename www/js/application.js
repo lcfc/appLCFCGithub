@@ -1844,7 +1844,7 @@ var Application = {
       // params.value2 = "param";
 
       // options.params = params;
-      $.("#foto-anteprime img").each(function(i) {
+      $("#foto-anteprime img").each(function(i) {
         fileUrl = $(this).attr("src");
 
         var options = new FileUploadOptions();
