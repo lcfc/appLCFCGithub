@@ -1858,7 +1858,7 @@ var Application = {
         ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
       });
 
-    $("#foto-anteprime").on("click", "img", function(){
+    $("#foto-anteprime img").on("click", function(){
       $(this).toggleClass("image-selected");
       alert($(this).attr("class"));
     })
