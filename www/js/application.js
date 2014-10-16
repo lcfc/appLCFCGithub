@@ -1839,21 +1839,23 @@ var Application = {
     //invio foto
     $("#foto").on("click", "#foto-invia", function() {
 
-      // var options = new FileUploadOptions();
-      // options.fileKey = "file";
-      // options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-      // options.mimeType = "text/plain";
-      // 
       // var params = {};
       // params.value1 = "test";
       // params.value2 = "param";
-      // 
-      // options.params = params;
-      fileUrl = $("#foto-anteprime img").attr("src");
-      alert(fileUrl)
 
-      var ft = new FileTransfer();
-      ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
+      // options.params = params;
+      $.("#foto-anteprime img").each(function(i) {
+        fileUrl = $(this).attr("src");
+
+        var options = new FileUploadOptions();
+        options.fileKey = "file";
+        options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+        options.mimeType = "image/jpeg";
+
+        var ft = new FileTransfer();
+        ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
+      });
+
     });
   }, //foto fine
 
@@ -1867,8 +1869,7 @@ var Application = {
   },
 
   onCameraSuccess: function(imageURI) {
-    $("#foto-anteprime").append("<img src='"+imageURI+"' />");
-    alert(imageURI);
+    $("#foto-anteprime").prepend("<img src='"+imageURI+"' />").css({"width":"150px", "margin": "0 5px 5px 0"});
   },
 
   onCameraError: function(errorMessage) {
