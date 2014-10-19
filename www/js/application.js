@@ -39,7 +39,7 @@ var Application = {
 
 //Index
 	initIndex: function() {
-    Application.sendStatistichePagine();
+    // Application.sendStatistichePagine();
     var markup = "";
     squadra = localStorage.getItem('squadra');
     squadraId = localStorage.getItem('squadra_id');
@@ -1826,6 +1826,11 @@ var Application = {
 
 //foto
   initFoto: function() {
+    var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
+    if(fotoSelezionate.length == 0) {
+      $(".no-foto").removeClass("none");
+    }
+
     //scatto foto
     $("#foto").on("click", "#foto-scatta", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
@@ -1857,7 +1862,24 @@ var Application = {
         var ft = new FileTransfer();
         ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
       });
+    });
 
+    $("#foto-anteprime").on("click, tap", "img", function(){
+      $(this).toggleClass("image-selected");
+      alert('classe: '+$(this).attr("class"));
+
+      var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
+
+      if($(this).hasClass("image-selected")) {
+        fotoSelezionate.push($(this).attr('src'));
+      } else {
+        var i = fotoSelezionate.indexOf($(this).attr('src'));
+        if(i != -1) {
+        	fotoSelezionate.splice(i, 1);
+        }
+      }
+      fotoSelezionate.sort();
+      localStorage.setItem('foto_selezionate', JSON.stringify(fotoSelezionate));
 
     });
   }, //foto fine
@@ -1939,15 +1961,3 @@ $(document).on('swiperight','#classifica',function() {$.mobile.changePage('class
 $(document).on('swiperight','#risultati',function() {$.mobile.changePage('classifica.html');});
 $(document).on('swiperight','#classifica-marcatori',function() {$.mobile.changePage('risultati.html');});
 // $(document).on('swiperight','#classifica-formazione',function() {$.mobile.changePage('classifica-marcatori.html');});
-
-
-$("#foto").on("click", "#foto-anteprime img", function(){
-  $(this).toggleClass("image-selected");
-  alert($(this).attr("class"));
-  
-  var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
-  fotoSelezionate.push($(this).attr('src'));
-  fotoSelezionate.sort();
-  localStorage.setItem('foto_selezionate', JSON.stringify(fotoSelezionate));
-
-});
