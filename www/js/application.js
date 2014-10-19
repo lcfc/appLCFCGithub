@@ -1861,7 +1861,7 @@ var Application = {
     $("#foto").on("click", "#foto-anteprime img", function(){
       $(this).toggleClass("image-selected");
       alert($(this).attr("class"));
-    })
+    });
 
     });
   }, //foto fine
@@ -1876,7 +1876,7 @@ var Application = {
   },
 
   onCameraSuccess: function(imageURI) {
-    $("#foto-anteprime").prepend("<img src='"+imageURI+"' />").css({"width":"150px", "margin": "0 5px 5px 0"});
+    $("#foto-anteprime").prepend("<img src='"+imageURI+"' class='image-selected' />").css({"width":"150px", "margin": "0 5px 5px 0"});
   },
 
   onCameraError: function(errorMessage) {
