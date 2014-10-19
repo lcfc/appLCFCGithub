@@ -1846,7 +1846,7 @@ var Application = {
       // params.value2 = "param";
 
       // options.params = params;
-      $("#foto-anteprime img").each(function(i) {
+      $("#foto-anteprime img.image-selected").each(function(i) {
         fileUrl = $(this).attr("src");
 
         // var options = new FileUploadOptions();
@@ -1858,10 +1858,6 @@ var Application = {
         ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
       });
 
-    $("#foto").on("click", "#foto-anteprime img", function(){
-      $(this).toggleClass("image-selected");
-      alert($(this).attr("class"));
-    });
 
     });
   }, //foto fine
@@ -1887,8 +1883,9 @@ var Application = {
 Application.initialize();
 
 $(document).on('pageshow','.page',function() {Application.initMenu();
-  page = $.mobile.path.getLocation().replace($.mobile.path.getDocumentBase(),'');
-  if(page == "") page = "home.html";
+  //page = $.mobile.path.getLocation().replace($.mobile.path.getDocumentBase(),'');
+  page = $(this).attr("id")+".html";
+  if(page == "index.html") page = "home.html";
   Application.setStatistichePagine();
   if( typeof window.gaPlugin  != "undefined")
     window.gaPlugin.trackPage(function(){}, function(){}, page);
@@ -1942,3 +1939,15 @@ $(document).on('swiperight','#classifica',function() {$.mobile.changePage('class
 $(document).on('swiperight','#risultati',function() {$.mobile.changePage('classifica.html');});
 $(document).on('swiperight','#classifica-marcatori',function() {$.mobile.changePage('risultati.html');});
 // $(document).on('swiperight','#classifica-formazione',function() {$.mobile.changePage('classifica-marcatori.html');});
+
+
+$("#foto").on("click", "#foto-anteprime img", function(){
+  $(this).toggleClass("image-selected");
+  alert($(this).attr("class"));
+  
+  var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
+  fotoSelezionate.push($(this).attr('src'));
+  fotoSelezionate.sort();
+  localStorage.setItem('foto_selezionate', JSON.stringify(fotoSelezionate));
+
+});
