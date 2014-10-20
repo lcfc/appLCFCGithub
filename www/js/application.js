@@ -1867,7 +1867,7 @@ var Application = {
       });
     });
 
-    $("#foto-anteprime").on("click, tap", "div", function(){
+    $("#foto-anteprime").on("click", "div", function(){
       $(this).toggleClass("image-selected");
       alert("selezionato:"+$(this).attr('class'));
 
