@@ -1841,8 +1841,8 @@ var Application = {
         quality : 80,
         allowEdit : true,
         correctOrientation: true,
-        targetWidth: 100,
-        targetHeight: 100,
+        // targetWidth: 100,
+        // targetHeight: 100,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true });
     });
@@ -1869,7 +1869,7 @@ var Application = {
 
     $("#foto-anteprime").on("click, tap", "img", function(){
       $(this).toggleClass("image-selected");
-      alert("selezionato:"+$("this").attr('class'));
+      alert("selezionato:"+$(this).attr('class'));
 
       // var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
       // 
