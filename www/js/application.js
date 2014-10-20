@@ -1868,8 +1868,8 @@ var Application = {
     });
 
     $("#foto-anteprime").on("click, tap", "img", function(){
-      $(this).toggleClass("image-selected");
-      alert("selezionato:"+$(this).attr('class'));
+      $(this).parent().toggleClass("image-selected");
+      alert("selezionato:"+$(this).parent().attr('class'));
 
       // var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
       // 
@@ -1897,7 +1897,7 @@ var Application = {
   },
 
   onCameraSuccess: function(imageURI) {
-    $("#foto-anteprime").prepend("<img src='"+imageURI+"' class='left image-selected' />");
+    $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>");
   },
 
   onCameraError: function(errorMessage) {
