@@ -1869,7 +1869,6 @@ var Application = {
 
     $("#foto-anteprime").on("click", "div", function(){
       $(this).toggleClass("image-selected");
-      alert("selezionato:"+$(this).attr('class'));
 
       // var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
       // 
