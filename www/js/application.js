@@ -1830,7 +1830,7 @@ var Application = {
     if(foto.length == 0) {
       $(".no-foto").removeClass("none");
     } else {
-      for(img in fotoSelezionate) {
+      for(img in foto) {
         $("#foto-anteprime").append("<img src='"+img+"' class='left' />");
       }
     }
@@ -1901,6 +1901,7 @@ var Application = {
 
   onCameraSuccess: function(imageURI) {
     $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>");
+    $(".no-foto").removeClass("none");
     var foto = localStorage.getItem('foto') == null ? new Array() : JSON.parse(localStorage.getItem('foto'));
     foto.push(imageURI);
     localStorage.setItem('foto', JSON.stringify(foto));
