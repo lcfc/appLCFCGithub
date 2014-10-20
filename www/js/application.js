@@ -1826,8 +1826,8 @@ var Application = {
 
 //foto
   initFoto: function() {
-    var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
-    if(fotoSelezionate.length == 0) {
+    var foto = localStorage.getItem('foto') == null ? new Array() : JSON.parse(localStorage.getItem('foto'));
+    if(foto.length == 0) {
       $(".no-foto").removeClass("none");
     } else {
       for(img in fotoSelezionate) {
@@ -1849,6 +1849,8 @@ var Application = {
 
     //invio foto
     $("#foto").on("click", "#foto-invia", function() {
+      var fotoInviate = localStorage.getItem('foto_inviate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_inviate'));
+
       // var params = {};
       // params.value1 = "test";
       // params.value2 = "param";
@@ -1856,6 +1858,7 @@ var Application = {
       // options.params = params;
       $("#foto-anteprime .image-selected img").each(function(i) {
         fileUrl = $(this).attr("src");
+        fotoInviate.push($(this).attr('src'));
 
         // var options = new FileUploadOptions();
         // options.fileKey = "file";
@@ -1865,6 +1868,7 @@ var Application = {
         var ft = new FileTransfer();
         ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
       });
+      localStorage.setItem('foto_inviate', JSON.stringify(fotoInviate));
     });
 
     $("#foto-anteprime").on("click", "div", function(){
@@ -1897,6 +1901,9 @@ var Application = {
 
   onCameraSuccess: function(imageURI) {
     $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>");
+    var foto = localStorage.getItem('foto') == null ? new Array() : JSON.parse(localStorage.getItem('foto'));
+    foto.push(imageURI);
+    localStorage.setItem('foto', JSON.stringify(foto));
   },
 
   onCameraError: function(errorMessage) {
