@@ -131,6 +131,7 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
 
 /*foto*/
 .no-foto{color:#999;font-size:20px;line-height:200%;text-align:center;}
+#foto-anteprime img{width:150px;margin:0 10px 10px 0;}
 .image-selected{background:url("../images/icon-star-full.png") no-repeat top right;}
 
 

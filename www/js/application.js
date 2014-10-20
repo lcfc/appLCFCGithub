@@ -1897,7 +1897,7 @@ var Application = {
   },
 
   onCameraSuccess: function(imageURI) {
-    $("#foto-anteprime").prepend("<img src='"+imageURI+"' class='left image-selected' />").css({"width":"150px", "margin": "0 5px 5px 0"});
+    $("#foto-anteprime").prepend("<img src='"+imageURI+"' class='left image-selected' />");
     $(".no-foto").removeClass("none");
   },
 
