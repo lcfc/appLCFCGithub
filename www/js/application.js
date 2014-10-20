@@ -1854,7 +1854,7 @@ var Application = {
       // params.value2 = "param";
 
       // options.params = params;
-      $("#foto-anteprime img.image-selected").each(function(i) {
+      $("#foto-anteprime .image-selected img").each(function(i) {
         fileUrl = $(this).attr("src");
 
         // var options = new FileUploadOptions();
@@ -1867,9 +1867,9 @@ var Application = {
       });
     });
 
-    $("#foto-anteprime").on("click, tap", "img", function(){
-      $(this).parent().toggleClass("image-selected");
-      alert("selezionato:"+$(this).parent().attr('class'));
+    $("#foto-anteprime").on("click, tap", "div", function(){
+      $(this).toggleClass("image-selected");
+      alert("selezionato:"+$(this).attr('class'));
 
       // var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
       // 
