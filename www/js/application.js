@@ -1827,6 +1827,8 @@ var Application = {
 //foto
   initFoto: function() {
     var foto = localStorage.getItem('foto') == null ? new Array() : JSON.parse(localStorage.getItem('foto'));
+    $("#foto-anteprime").append("Foto:"+JSON.stringify(foto));
+    
     if(foto.length == 0) {
       $(".no-foto").removeClass("none");
     } else {
