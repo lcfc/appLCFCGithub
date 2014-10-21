@@ -19,6 +19,7 @@
 		<gap:plugin name="org.apache.cordova.media" />
 		<gap:plugin name="org.apache.cordova.file" />
 		<gap:plugin name="org.apache.cordova.file-transfer" />
+		<gap:plugin name="com.phonegap.plugins.pushplugin" version="2.4.0" />
 
 		<feature name="http://api.phonegap.com/1.0/device" />
 		<preference name="phonegap-version" value="3.6.3" />

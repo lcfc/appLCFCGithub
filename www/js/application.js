@@ -26,8 +26,65 @@ var Application = {
       }
       
     }, 250);
-    
-  },
+
+    pushNotification = window.plugins.pushNotification;
+
+    $("#platform").append('<li>registering ' + device.platform + '</li>');
+    if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
+        pushNotification.register(
+        successHandler,
+        errorHandler,
+        {
+            "senderID":"replace_with_sender_id",
+            "ecb":"onNotification"
+        });
+    } else {
+        pushNotification.register(
+        tokenHandler,
+        errorHandler,
+        {
+            "badge":"true",
+            "sound":"true",
+            "alert":"true",
+            "ecb":"onNotificationAPN"
+        });
+    }
+
+    function successHandler (result) {
+        alert('result = ' + result);
+    }
+
+    function errorHandler (error) {
+        alert('error = ' + error);
+    }
+
+    function onNotificationAPN (event) {
+        if ( event.alert )
+        {
+            navigator.notification.alert(event.alert);
+        }
+
+        if ( event.sound )
+        {
+            var snd = new Media(event.sound);
+            snd.play();
+        }
+
+        if ( event.badge )
+        {
+            pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge);
+        }
+    }
+
+    function tokenHandler (result) {
+        // Your iOS push server needs to know the token before it can push to this device
+        // here is where you might want to send it the token for later use.
+        alert('device token = ' + result);
+    }
+
+
+
+  }, //fine device ready
 
   orientationChange: function(e) {
     if(window.orientation == 90 || window.orientation == -90) {
@@ -1839,7 +1896,6 @@ var Application = {
     });
 
     $("#foto").on("click", "#scegli-galleria", function() {
-      alert('click');
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality : 80,
         sourceType: 0,
