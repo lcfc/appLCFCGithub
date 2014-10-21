@@ -1833,7 +1833,7 @@ var Application = {
       $(".no-foto").removeClass("none");
     } else {
       for(img in foto) {
-        $("#foto-anteprime").append("<img src='"+img+"' class='left' />");
+        $("#foto-anteprime").append("<img src='"+img.replace("file://", "")+"' class='left' />");
       }
     }
 
