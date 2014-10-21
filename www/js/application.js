@@ -1870,7 +1870,6 @@ var Application = {
         var ft = new FileTransfer();
         ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
       });
-      localStorage.setItem('foto_inviate', JSON.stringify(fotoInviate));
     });
 
     $("#foto-anteprime").on("click", "div", function(){
@@ -1889,8 +1888,8 @@ var Application = {
   },
 
   onCameraSuccess: function(imageURI) {
-    $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>"+imageURI);
-    $(".no-foto").removeClass("none");
+    $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>");
+    $(".no-foto").hide();
   },
 
   onCameraError: function(errorMessage) {
