@@ -1839,9 +1839,10 @@ var Application = {
     });
 
     $("#foto").on("click", "#scegli-galleria", function() {
+      alert('click');
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality : 80,
-        sourceType: SAVEDPHOTOALBUM,
+        sourceType: 0,
         // allowEdit : true,
         correctOrientation: true,
         // targetWidth: 100,
