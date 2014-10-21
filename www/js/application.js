@@ -31,49 +31,40 @@ var Application = {
 
     $("#platform").append('<li>registering ' + device.platform + '</li>');
     if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
-        pushNotification.register(
-        successHandler,
-        errorHandler,
-        {
-            "senderID":"replace_with_sender_id",
-            "ecb":"onNotification"
-        });
+      pushNotification.register(
+      successHandler,
+      errorHandler,
+      {
+          "senderID":"131249646320",
+          "ecb":"onNotification"
+      });
     } else {
-        pushNotification.register(
-        tokenHandler,
-        errorHandler,
-        {
-            "badge":"true",
-            "sound":"true",
-            "alert":"true",
-            "ecb":"onNotificationAPN"
-        });
+      pushNotification.register(
+      tokenHandler,
+      errorHandler,
+      {
+          "badge":"true",
+          "sound":"true",
+          "alert":"true",
+          "ecb":"onNotificationAPN"
+      });
     }
 
     function successHandler (result) {
-        alert('result = ' + result);
+      alert('result = ' + result);
     }
 
     function errorHandler (error) {
-        alert('error = ' + error);
+      alert('error = ' + error);
     }
 
     function onNotificationAPN (event) {
-        if ( event.alert )
-        {
-            navigator.notification.alert(event.alert);
-        }
-
-        if ( event.sound )
-        {
-            var snd = new Media(event.sound);
-            snd.play();
-        }
-
-        if ( event.badge )
-        {
-            pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge);
-        }
+      if(event.alert) { navigator.notification.alert(event.alert); }
+      if(event.sound) {
+        var snd = new Media(event.sound);
+        snd.play();
+      }
+      if(event.badge) { pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge); }
     }
 
     function tokenHandler (result) {
@@ -1909,6 +1900,7 @@ var Application = {
 
     //invio foto
     $("#foto").on("click", "#foto-invia", function() {
+      $("#foto-invio-esito").html("Invio immagini in corso...");
       // var params = {};
       // params.value1 = "test";
       // params.value2 = "param";
@@ -1926,6 +1918,7 @@ var Application = {
         var ft = new FileTransfer();
         ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
       });
+      $("#foto-invio-esito").html("Invio immagini completato");
     });
 
     $("#foto-anteprime").on("click", "div", function(){
@@ -1940,7 +1933,7 @@ var Application = {
   },
 
   onFailUploadFile: function (error) {
-    alert(JSON.stringify(error));
+    $("#foto-invio-esito").append("Impossibile caricare l'immagine");
   },
 
   onCameraSuccess: function(imageURI) {
