@@ -1784,39 +1784,39 @@ var Application = {
     }
   },
 
-  setStatistichePagine: function() {
-    var page = $.mobile.activePage.attr('id');
-    var statistiche = localStorage.getItem('statistiche') == null ? {} : JSON.parse(localStorage.getItem('statistiche'));
-    statistiche[page] = (statistiche[page] || 0) + 1;
-    localStorage.setItem('statistiche', JSON.stringify(statistiche));
-  },
+  // setStatistichePagine: function() {
+  //   var page = $.mobile.activePage.attr('id');
+  //   var statistiche = localStorage.getItem('statistiche') == null ? {} : JSON.parse(localStorage.getItem('statistiche'));
+  //   statistiche[page] = (statistiche[page] || 0) + 1;
+  //   localStorage.setItem('statistiche', JSON.stringify(statistiche));
+  // },
 
-  sendStatistichePagine: function() {
-    if(new Date().getTime() - localStorage.getItem('statistiche_datetime') > 5*60*60*1000) {
-      var stats = localStorage.getItem('statistiche'),
-        cellulare = typeof device === "undefined" ? '0' : device.uuid;
-      $.ajax({
-        url: urlGestionale+'statistica/importStatisticheApp',
-        data: {
-          cellulare: MD5(cellulare), 
-          stats: stats,
-          secret: MD5(MD5(cellulare)+secret),
-        },
-        type: 'post',
-        crossDomain: true,
-        dataType: 'jsonp',
-        success: function(data) {
-          localStorage.removeItem('statistiche');
-          localStorage.removeItem('statistiche_datetime');
-          Application.setStatistichePagine();
-          localStorage.setItem('statistiche_datetime', new Date().getTime());
-        },
-        error: function(e) {
-          console.log(e);
-        },
-      });
-    }
-  },
+  // sendStatistichePagine: function() {
+  //   if(new Date().getTime() - localStorage.getItem('statistiche_datetime') > 5*60*60*1000) {
+  //     var stats = localStorage.getItem('statistiche'),
+  //       cellulare = typeof device === "undefined" ? '0' : device.uuid;
+  //     $.ajax({
+  //       url: urlGestionale+'statistica/importStatisticheApp',
+  //       data: {
+  //         cellulare: MD5(cellulare), 
+  //         stats: stats,
+  //         secret: MD5(MD5(cellulare)+secret),
+  //       },
+  //       type: 'post',
+  //       crossDomain: true,
+  //       dataType: 'jsonp',
+  //       success: function(data) {
+  //         localStorage.removeItem('statistiche');
+  //         localStorage.removeItem('statistiche_datetime');
+  //         Application.setStatistichePagine();
+  //         localStorage.setItem('statistiche_datetime', new Date().getTime());
+  //       },
+  //       error: function(e) {
+  //         console.log(e);
+  //       },
+  //     });
+  //   }
+  // },
 
   initMenu: function() {
     $.mobile.loading('hide');
@@ -1826,22 +1826,23 @@ var Application = {
 
 //foto
   initFoto: function() {
-    var foto = localStorage.getItem('foto') == null ? new Array() : JSON.parse(localStorage.getItem('foto'));
-    $("#foto-anteprime").append("Foto:"+JSON.stringify(foto));
-    
-    if(foto.length == 0) {
-      $(".no-foto").removeClass("none");
-    } else {
-      for(img in foto) {
-        $("#foto-anteprime").append("<img src='"+img.replace("file://", "")+"' class='left' />");
-      }
-    }
-
     //scatto foto
     $("#foto").on("click", "#foto-scatta", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality : 80,
-        allowEdit : true,
+        // allowEdit : true,
+        correctOrientation: true,
+        // targetWidth: 100,
+        // targetHeight: 100,
+        popoverOptions: CameraPopoverOptions,
+        saveToPhotoAlbum: true });
+    });
+
+    $("#foto").on("click", "#scegli-galleria", function() {
+      navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
+        quality : 80,
+        sourceType: SAVEDPHOTOALBUM,
+        // allowEdit : true,
         correctOrientation: true,
         // targetWidth: 100,
         // targetHeight: 100,
@@ -1851,8 +1852,6 @@ var Application = {
 
     //invio foto
     $("#foto").on("click", "#foto-invia", function() {
-      var fotoInviate = localStorage.getItem('foto_inviate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_inviate'));
-
       // var params = {};
       // params.value1 = "test";
       // params.value2 = "param";
@@ -1875,25 +1874,8 @@ var Application = {
 
     $("#foto-anteprime").on("click", "div", function(){
       $(this).toggleClass("image-selected");
-
-      // var fotoSelezionate = localStorage.getItem('foto_selezionate') == null ? new Array() : JSON.parse(localStorage.getItem('foto_selezionate'));
-      // 
-      // if($(this).hasClass("image-selected")) {
-      //   fotoSelezionate.push($(this).attr('src'));
-      // } else {
-      //   var i = fotoSelezionate.indexOf($(this).attr('src'));
-      //   if(i != -1) {
-      //    fotoSelezionate.splice(i, 1);
-      //   }
-      // }
-      // fotoSelezionate.sort();
-      // localStorage.setItem('foto_selezionate', JSON.stringify(fotoSelezionate));
-
     });
 
-    $("#foto-anteprime").on("taphold", "div", function(){
-      alert("taphold");
-    });
   }, //foto fine
 
 
@@ -1908,9 +1890,6 @@ var Application = {
   onCameraSuccess: function(imageURI) {
     $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>"+imageURI);
     $(".no-foto").removeClass("none");
-    var foto = localStorage.getItem('foto') == null ? new Array() : JSON.parse(localStorage.getItem('foto'));
-    foto.push(imageURI);
-    localStorage.setItem('foto', JSON.stringify(foto));
   },
 
   onCameraError: function(errorMessage) {
@@ -1924,7 +1903,7 @@ $(document).on('pageshow','.page',function() {Application.initMenu();
   //page = $.mobile.path.getLocation().replace($.mobile.path.getDocumentBase(),'');
   page = $(this).attr("id")+".html";
   if(page == "index.html") page = "home.html";
-  Application.setStatistichePagine();
+  // Application.setStatistichePagine();
   if( typeof window.gaPlugin  != "undefined")
     window.gaPlugin.trackPage(function(){}, function(){}, page);
   });
