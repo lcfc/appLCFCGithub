@@ -1890,6 +1890,10 @@ var Application = {
       // localStorage.setItem('foto_selezionate', JSON.stringify(fotoSelezionate));
 
     });
+
+    $("#foto-anteprime").on("taphold", "div", function(){
+      alert("taphold");
+    });
   }, //foto fine
 
 
@@ -1902,7 +1906,7 @@ var Application = {
   },
 
   onCameraSuccess: function(imageURI) {
-    $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>");
+    $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>"+imageURI);
     $(".no-foto").removeClass("none");
     var foto = localStorage.getItem('foto') == null ? new Array() : JSON.parse(localStorage.getItem('foto'));
     foto.push(imageURI);
