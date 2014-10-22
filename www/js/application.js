@@ -69,8 +69,9 @@ var Application = {
 
     function tokenHandler (result) {
       alert(result);
+      localStorage.setItem('token',result);
       $.ajax({
-        url: urlGestionale+"push_notification/token?callback=?",
+        url: urlGestionale+"push_notification/token",
         data: {
           sistema_operativo: "ios",
           token: result,
@@ -90,9 +91,10 @@ var Application = {
         },
         error: function(data) {
           alert('ok'+data);
-        },
+        }
       });
 
+      alert('token:'+localStorage.getItem('token'));
     }
 
 
