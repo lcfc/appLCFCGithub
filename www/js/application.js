@@ -71,6 +71,30 @@ var Application = {
       // alert(result);
       localStorage.setItem('token',result);
       // alert('token:'+localStorage.getItem('token'));
+
+      $.ajax({
+        url: urlGestionale+"push_notification/token",
+        data: {
+          sistema_operativo: "ios",
+          token: localStorage.getItem('token'),
+          anagrafica_id: 1,
+          // cellulare: MD5(cellulare), 
+          // secret: MD5(MD5(cellulare)+secret),
+        },
+        type: 'post',
+        crossDomain: true,
+        dataType: 'jsonp',
+        success: function(data) {
+          if(data.msg == 'ok') {
+            alert('inserito');
+          } else {
+            alert('non inserito');
+          }
+        },
+        error: function(data) {
+          alert('ok'+data);
+        }
+      });
     }
 
 
@@ -1931,7 +1955,7 @@ var Application = {
         data: {
           sistema_operativo: "ios",
           token: localStorage.getItem('token'),
-          anagrafica_id: null,
+          anagrafica_id: 1,
           // cellulare: MD5(cellulare), 
           // secret: MD5(MD5(cellulare)+secret),
         },
