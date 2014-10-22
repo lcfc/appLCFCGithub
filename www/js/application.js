@@ -29,7 +29,7 @@ var Application = {
 
     pushNotification = window.plugins.pushNotification;
 
-    $("#platform").append('<li>registering ' + device.platform + '</li>');
+    // $("#platform").append('<li>registering ' + device.platform + '</li>');
     if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
       pushNotification.register(
       successHandler,
@@ -68,13 +68,21 @@ var Application = {
     }
 
     function tokenHandler (result) {
-        // Your iOS push server needs to know the token before it can push to this device
-        // here is where you might want to send it the token for later use.
-        alert('device token = ' + result);
+      $.ajax({
+        url: urlGestionale+"push_notification/token?callback=?",
+        dataType: "jsonp",
+        crossDomain: true,
+        data: {
+          sistema_operativo: "ios",
+          token: result,
+          anagrafica_id: null
+        },
+        error: function(data) {
+          alert('errore:'+data);
+        },
+      });
+        
     }
-
-
-
   }, //fine device ready
 
   orientationChange: function(e) {
