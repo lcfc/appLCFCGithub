@@ -88,32 +88,6 @@ var Application = {
 //Index
 	initIndex: function() {
     // Application.sendStatistichePagine();
-
-    $.ajax({
-      url: urlGestionale+"push_notification/token",
-      data: {
-        sistema_operativo: "ios",
-        token: localStorage.getItem('token'),
-        anagrafica_id: null,
-        // cellulare: MD5(cellulare), 
-        // secret: MD5(MD5(cellulare)+secret),
-      },
-      type: 'post',
-      crossDomain: true,
-      dataType: 'jsonp',
-      success: function(data) {
-        if(data.msg == 'ok') {
-          alert('inserito');
-        } else {
-          alert('non inserito');
-        }
-      },
-      error: function(data) {
-        alert('ok'+data);
-      }
-    });
-
-
     var markup = "";
     squadra = localStorage.getItem('squadra');
     squadraId = localStorage.getItem('squadra_id');
@@ -1949,6 +1923,33 @@ var Application = {
 
     $("#foto-anteprime").on("click", "div", function(){
       $(this).toggleClass("image-selected");
+    });
+
+    $("#foto").on("click", "#prova", function(){
+      $.ajax({
+        url: urlGestionale+"push_notification/token",
+        data: {
+          sistema_operativo: "ios",
+          token: localStorage.getItem('token'),
+          anagrafica_id: null,
+          // cellulare: MD5(cellulare), 
+          // secret: MD5(MD5(cellulare)+secret),
+        },
+        type: 'post',
+        crossDomain: true,
+        dataType: 'jsonp',
+        success: function(data) {
+          if(data.msg == 'ok') {
+            alert('inserito');
+          } else {
+            alert('non inserito');
+          }
+        },
+        error: function(data) {
+          alert('ok'+data);
+        }
+      });
+      
     });
 
   }, //foto fine
