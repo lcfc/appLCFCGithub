@@ -71,21 +71,29 @@ var Application = {
       alert(result);
       $.ajax({
         url: urlGestionale+"push_notification/token?callback=?",
-        dataType: "jsonp",
-        crossDomain: true,
         data: {
           sistema_operativo: "ios",
           token: result,
           anagrafica_id: null
+          cellulare: MD5(cellulare), 
+          secret: MD5(MD5(cellulare)+secret),
+        },
+        type: 'post',
+        crossDomain: true,
+        dataType: 'jsonp',
+        success: function(data) {
+          if(data.msg == 'ok')
+          {
+            alert('inserito');
+          } else {
+            alert('non inserito');
+          }
         },
         error: function(data) {
-          alert('errore'+data);
+          alert('ok'+data);
         },
-      })
-      .then( function (response) {
-        alert(response);
       });
-        
+
     }
 
 
