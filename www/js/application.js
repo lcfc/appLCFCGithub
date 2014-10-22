@@ -68,6 +68,7 @@ var Application = {
     }
 
     function tokenHandler (result) {
+      alert(result);
       $.ajax({
         url: urlGestionale+"push_notification/token?callback=?",
         dataType: "jsonp",
