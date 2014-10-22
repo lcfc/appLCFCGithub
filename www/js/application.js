@@ -74,7 +74,7 @@ var Application = {
         data: {
           sistema_operativo: "ios",
           token: result,
-          anagrafica_id: null
+          anagrafica_id: null,
           cellulare: MD5(cellulare), 
           secret: MD5(MD5(cellulare)+secret),
         },
@@ -82,8 +82,7 @@ var Application = {
         crossDomain: true,
         dataType: 'jsonp',
         success: function(data) {
-          if(data.msg == 'ok')
-          {
+          if(data.msg == 'ok') {
             alert('inserito');
           } else {
             alert('non inserito');
