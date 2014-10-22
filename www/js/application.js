@@ -78,11 +78,17 @@ var Application = {
           anagrafica_id: null
         },
         error: function(data) {
-          alert('errore:'+data);
+          alert('errore'+data);
         },
+      })
+      .then( function (response) {
+        alert(response);
       });
         
     }
+
+
+
   }, //fine device ready
 
   orientationChange: function(e) {
