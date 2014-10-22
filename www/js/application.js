@@ -70,6 +70,7 @@ var Application = {
     function tokenHandler (result) {
       alert(result);
       localStorage.setItem('token',result);
+      alert('token:'+localStorage.getItem('token'));
       $.ajax({
         url: urlGestionale+"push_notification/token",
         data: {
@@ -94,7 +95,6 @@ var Application = {
         }
       });
 
-      alert('token:'+localStorage.getItem('token'));
     }
 
 
