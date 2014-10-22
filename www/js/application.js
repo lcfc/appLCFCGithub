@@ -70,29 +70,44 @@ var Application = {
     function tokenHandler (result) {
       alert(result);
       localStorage.setItem('token',result);
-      alert('token:'+localStorage.getItem('token'));
+      // alert('token:'+localStorage.getItem('token'));
+      // $.ajax({
+      //   url: urlGestionale+"push_notification/token",
+      //   data: {
+      //     sistema_operativo: "ios",
+      //     token: result,
+      //     anagrafica_id: null,
+      //     cellulare: MD5(cellulare), 
+      //     secret: MD5(MD5(cellulare)+secret),
+      //   },
+      //   type: 'post',
+      //   crossDomain: true,
+      //   dataType: 'jsonp',
+      //   success: function(data) {
+      //     if(data.msg == 'ok') {
+      //       alert('inserito');
+      //     } else {
+      //       alert('non inserito');
+      //     }
+      //   },
+      //   error: function(data) {
+      //     alert('ok'+data);
+      //   }
+      // });
+
       $.ajax({
-        url: urlGestionale+"push_notification/token",
-        data: {
-          sistema_operativo: "ios",
-          token: result,
-          anagrafica_id: null,
-          cellulare: MD5(cellulare), 
-          secret: MD5(MD5(cellulare)+secret),
-        },
-        type: 'post',
+        url: urlGestionale+"squadra/ajaxPerApp?callback=?",
+        dataType: "jsonp",
         crossDomain: true,
-        dataType: 'jsonp',
-        success: function(data) {
-          if(data.msg == 'ok') {
-            alert('inserito');
-          } else {
-            alert('non inserito');
-          }
+        data: {
+          term: '0343'
         },
-        error: function(data) {
-          alert('ok'+data);
-        }
+        error: function() {
+          alert('Questa funzione richiede una connessione internet');
+        },
+      })
+      .then( function (response) {
+        alert(response)
       });
 
     }
