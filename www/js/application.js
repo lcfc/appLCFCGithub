@@ -55,11 +55,11 @@ var Application = {
 
   successHandler: function (result) {
     console.log('result = ' + result);
-  }
+  },
 
   errorHandler: function (error) {
     console.log('error = ' + error);
-  }
+  },
 
   tokenHandler: function (result) {
     localStorage.setItem('token',result);
@@ -87,7 +87,7 @@ var Application = {
         alert('ko'+data);
       }
     });
-  }
+  },
 
 
   // iOS
