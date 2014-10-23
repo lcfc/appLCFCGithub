@@ -63,11 +63,14 @@ var Application = {
 
   tokenHandler: function (result) {
     localStorage.setItem('token',result);
+    Application.registerToken("ios");
+  },
 
+  registerToken: function (so) {
     $.ajax({
       url: urlGestionale+"push_notification/token",
       data: {
-        sistema_operativo: "ios",
+        sistema_operativo: so,
         token: localStorage.getItem('token'),
         anagrafica_id: 1,
         // cellulare: MD5(cellulare), 
@@ -90,6 +93,7 @@ var Application = {
   },
 
 
+
   // iOS
   onNotificationAPN: function (e) {
     alert('notifica');
@@ -104,14 +108,12 @@ var Application = {
   // android
   onNotification: function (e) {
     $("#platform").append('<br/>EVENT -> RECEIVED:' + e.event);
-alert("e:"+e);
     switch( e.event ) {
       case 'registered':
         if ( e.regid.length > 0 ) {
             $("#platform").append('<br/>REGISTERED -> REGID:' + e.regid);
-            // Your GCM push server needs to know the regID before it can push to this device
-            // here is where you might want to send it the regID for later use.
-            console.log("regID = " + e.regid);
+            localStorage.setItem('token',e.regid);
+            Application.registerToken("android");
         }
       break;
       case 'message':
