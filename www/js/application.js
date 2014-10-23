@@ -29,24 +29,24 @@ var Application = {
 
     pushNotification = window.plugins.pushNotification;
 
-    // $("#platform").append('<li>registering ' + device.platform + '</li>');
+    $("#platform").append('<li>registering ' + device.platform + '</li>');
     if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
       pushNotification.register(
       successHandler,
       errorHandler,
       {
-          "senderID":"131249646320",
-          "ecb":"onNotification"
+        "senderID":"131249646320",
+        "ecb":"onNotification"
       });
     } else {
       pushNotification.register(
       tokenHandler,
       errorHandler,
       {
-          "badge":"true",
-          "sound":"true",
-          "alert":"true",
-          "ecb":"onNotificationAPN"
+        "badge":"true",
+        "sound":"true",
+        "alert":"true",
+        "ecb":"onNotificationAPN"
       });
     }
 
@@ -67,10 +67,9 @@ var Application = {
       if(event.badge) { pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge); }
     }
 
+    // iOS
     function tokenHandler (result) {
-      // alert(result);
       localStorage.setItem('token',result);
-      // alert('token:'+localStorage.getItem('token'));
 
       $.ajax({
         url: urlGestionale+"push_notification/token",
@@ -97,7 +96,53 @@ var Application = {
       });
     }
 
+    // android
+    function onNotification(e) {
+      $("#platform").append('<br/>EVENT -> RECEIVED:' + e.event);
 
+      switch( e.event ) {
+        case 'registered':
+          if ( e.regid.length > 0 ) {
+              $("#platform").append('<br/>REGISTERED -> REGID:' + e.regid);
+              // Your GCM push server needs to know the regID before it can push to this device
+              // here is where you might want to send it the regID for later use.
+              console.log("regID = " + e.regid);
+          }
+        break;
+        case 'message':
+            // if this flag is set, this notification happened while we were in the foreground.
+            // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+            if ( e.foreground ) {
+                $("#platform").append('<br/>--INLINE NOTIFICATION--' + '</li>');
+
+                // on Android soundname is outside the payload.
+                // On Amazon FireOS all custom attributes are contained within payload
+                var soundfile = e.soundname || e.payload.sound;
+                // if the notification contains a soundname, play it.
+                var my_media = new Media("/android_asset/www/"+ soundfile);
+                my_media.play();
+            } else {  // otherwise we were launched because the user touched a notification in the notification tray.
+              if ( e.coldstart ) {
+                $("#platform").append('<br/>--COLDSTART NOTIFICATION--');
+              } else {
+                $("#platform").append('<br/>--BACKGROUND NOTIFICATION--');
+              }
+            }
+
+           $("#platform").append('<br/>MESSAGE -> MSG: ' + e.payload.message);
+               //Only works for GCM
+           $("#platform").append('<br/>MESSAGE -> MSGCNT: ' + e.payload.msgcnt);
+           //Only works on Amazon Fire OS
+           $("#platform").append('<br/>MESSAGE -> TIME: ' + e.payload.timeStamp);
+        break;
+        case 'error':
+          $("#platform").append('<br/>ERROR -> MSG:' + e.msg);
+        break;
+        default:
+          $("#platform").append('<br/>EVENT -> Unknown, an event was received and we do not know what it is');
+        break;
+      }
+    }
 
   }, //fine device ready
 
