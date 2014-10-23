@@ -35,8 +35,8 @@ var Application = {
       successHandler,
       errorHandler,
       {
-        "senderID":"131249646320",
-        "ecb":"onNotification"
+        senderID:"131249646320",
+        ecb:"onNotification"
       });
     } else {
       pushNotification.register(
