@@ -58,13 +58,14 @@ var Application = {
       alert('error = ' + error);
     }
 
-    function onNotificationAPN (event) {
-      if(event.alert) { navigator.notification.alert(event.alert); }
-      if(event.sound) {
+    function onNotificationAPN (e) {
+      alert(e);
+      if(e.alert) { navigator.notification.alert(e.alert); }
+      if(e.sound) {
         var snd = new Media(event.sound);
         snd.play();
       }
-      if(event.badge) { pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, event.badge); }
+      if(e.badge) { pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, e.badge); }
     }
 
     // iOS
