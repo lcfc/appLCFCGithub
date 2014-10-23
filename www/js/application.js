@@ -59,7 +59,7 @@ var Application = {
     }
 
     function onNotificationAPN (e) {
-      alert(e);
+      alert('notifica');
       if(e.alert) { navigator.notification.alert(e.alert); }
       if(e.sound) {
         var snd = new Media(event.sound);
