@@ -91,7 +91,7 @@ var Application = {
           }
         },
         error: function(data) {
-          alert('ok'+data);
+          alert('ko'+data);
         }
       });
     }
@@ -99,7 +99,7 @@ var Application = {
     // android
     function onNotification(e) {
       $("#platform").append('<br/>EVENT -> RECEIVED:' + e.event);
-
+alert("e:"+e);
       switch( e.event ) {
         case 'registered':
           if ( e.regid.length > 0 ) {
