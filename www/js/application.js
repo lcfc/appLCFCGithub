@@ -1950,7 +1950,14 @@ var Application = {
 
   initMenu: function() {
     $.mobile.loading('hide');
-    $.get('menu.html',function(data){$(":jqmData(role=page)").append(data).trigger('create');});
+    // $.get('menu.html',function(data){$(":jqmData(role=page)").append(data).trigger('create');});
+    $.ajax({
+      url: 'menu.html',
+      isLocal: true, 
+      success: function(data) {
+        $(":jqmData(role=page)").append(data).trigger('create');
+      },
+    });
   },
 
 
@@ -1976,8 +1983,7 @@ var Application = {
         correctOrientation: true,
         // targetWidth: 100,
         // targetHeight: 100,
-        popoverOptions: CameraPopoverOptions,
-        saveToPhotoAlbum: true });
+        popoverOptions: CameraPopoverOptions });
     });
 
     //invio foto
