@@ -1988,7 +1988,7 @@ var Application = {
 
     //invio foto selezionate
     $("#foto").on("click", "#foto-invia", function() {
-      $("#foto-invio-esito").html("Invio immagini in corso...").css({'padding': '5px', 'border':'1px solid #fc0', 'background': '#ffc'});
+      $("#foto-invio-esito").html("Invio immagini in corso...").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #fc0', 'background': '#ffc'});
       var params = {};
       params.titolo = $("#foto-titolo").val();
       params.descrizione = $("#foto-descrizione").val();
@@ -2007,7 +2007,7 @@ var Application = {
         ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
         $(this).parent().remove();
       });
-      $("#foto-invio-esito").html("Invio immagini completato");
+      $("#foto-invio-esito").html("Invio immagini completato").fadeOut(4000);
     });
 
     $("#foto-anteprime").on("click", "div", function(){
