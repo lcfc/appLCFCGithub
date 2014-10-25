@@ -135,7 +135,8 @@ var Application = {
               $("#platform").append('<br/>--BACKGROUND NOTIFICATION--');
             }
           }
-
+          alert(e.payload);
+          navigator.notification.alert(e.payload.message);
          $("#platform").append('<br/>MESSAGE -> MSG: ' + e.payload.message);
              //Only works for GCM
          $("#platform").append('<br/>MESSAGE -> MSGCNT: ' + e.payload.msgcnt);
