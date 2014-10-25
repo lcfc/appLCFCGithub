@@ -46,7 +46,7 @@ var Application = {
         "badge":"true",
         "sound":"true",
         "alert":"true",
-        "ecb":"Application.onNotificationAPN"
+        "ecb":Application.onNotificationAPN
       });
     }
 
