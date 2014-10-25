@@ -13,13 +13,21 @@
 				<a href="#" data-role="button" id="foto-invia">Invia foto</a>
 			</header>
 			<div data-role="content" id="foto-content">
-				<div id="foto-invio-esito"></div>
-				<div id="foto-anteprime" class="a-center">
-					<p class="no-foto">Nessuna foto ancora scattata<br/>Scatta una foto e inviala alla LCFC</p>
+				<div class="ui-grid-solo">
+					<div class="ui-block-a">
+						<div class="ui-body ui-body-d">
+							<div id="foto-invio-esito"></div>
+							<div id="foto-anteprime" class="a-center">
+								<p class="no-foto">Nessuna foto ancora scattata<br/>Scatta una foto e inviala alla LCFC</p>
+							</div>
+							<div class="clear"></div>
+							<form class="none">
+								<input type="text" id="foto-titolo" name="titolo" placeholder="titolo">
+								<textarea id="foto-descrizione" name="descrizione" placeholder="descrizione"></textarea>
+							</form>
+						</div>
+					</div>
 				</div>
-				<div class="clear"></div>
-				<input type="text" id="foto-titolo" name="titolo" placeholder="titolo">
-				<textarea id="foto-descrizione" name="descrizione" placeholder="descrizione"></textarea>
 				<a data-role="button" id="foto-scatta">Scatta foto</a>
 				<a data-role="button" id="scegli-galleria">Scegli da galleria</a>
 			</div>

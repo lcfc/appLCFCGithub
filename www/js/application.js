@@ -2000,16 +2000,17 @@ var Application = {
 
   onUploadFile: function(r) {
     // alert(JSON.stringify(r));
-    $("#foto-invio-esito").append(JSON.stringify(r));
+    $("#foto-invio-esito").html("Foto inviata");
   },
 
   onFailUploadFile: function(error) {
-    $("#foto-invio-esito").append("Impossibile caricare l'immagine");
+    $("#foto-invio-esito").html("Impossibile caricare l'immagine");
   },
 
   onCameraSuccess: function(imageURI) {
     $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>");
     $(".no-foto").hide();
+    $("#foto-titolo,#foto-descrizione").removeClass("none");
   },
 
   onCameraError: function(errorMessage) {
