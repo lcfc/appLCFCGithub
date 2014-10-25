@@ -94,10 +94,10 @@ var Application = {
   // iOS
   onNotificationAPN: function(event) {
       var pushNotification = window.plugins.pushNotification;
-      console.log("Received a notification! " + event.alert);
-      console.log("event sound " + event.sound);
-      console.log("event badge " + event.badge);
-      console.log("event " + event);
+      $("#platform").append("Received a notification! " + event.alert);
+      $("#platform").append("event sound " + event.sound);
+      $("#platform").append("event badge " + event.badge);
+      $("#platform").append("event " + event);
       if (event.alert) {
           navigator.notification.alert(event.alert);
       }
@@ -2005,6 +2005,7 @@ var Application = {
 
         var ft = new FileTransfer();
         ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
+        $(this).remove();
       });
       $("#foto-invio-esito").html("Invio immagini completato");
     });
@@ -2017,8 +2018,7 @@ var Application = {
 
 
   onUploadFile: function(r) {
-    // alert(JSON.stringify(r));
-    $("#foto-invio-esito").html("Foto inviata");
+    // $("#foto-invio-esito").html("Foto inviata");
   },
 
   onFailUploadFile: function(error) {
