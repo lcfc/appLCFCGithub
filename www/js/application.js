@@ -1951,7 +1951,7 @@ var Application = {
     //scatto foto
     $("#foto").on("click", "#foto-scatta", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
-        quality : 30,
+        quality: 90,
         targetWidth: 100,
         targetHeight: 100,
         correctOrientation: true,
@@ -1962,7 +1962,7 @@ var Application = {
     //prendo foto da galleria
     $("#foto").on("click", "#scegli-galleria", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
-        quality : 30,
+        quality: 90,
         sourceType: 0,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions });
@@ -2010,7 +2010,7 @@ var Application = {
   onCameraSuccess: function(imageURI) {
     $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>");
     $(".no-foto").hide();
-    $("#foto-titolo,#foto-descrizione").removeClass("none");
+    $("#foto-form").removeClass("none");
   },
 
   onCameraError: function(errorMessage) {
