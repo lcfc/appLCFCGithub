@@ -1971,22 +1971,22 @@ var Application = {
     //invio foto selezionate
     $("#foto").on("click", "#foto-invia", function() {
       $("#foto-invio-esito").html("Invio immagini in corso...");
-      // var params = {};
-      // params.value1 = "test";
-      // params.value2 = "param";
+      var params = {};
+      params.titolo = $("#foto-titolo").val();
+      params.descrizione = $("#foto-descrizione").val();
 
       // options.params = params;
       $("#foto-anteprime .image-selected img").each(function(i) {
         fileUrl = $(this).attr("src");
-        fotoInviate.push($(this).attr('src'));
 
-        // var options = new FileUploadOptions();
+        var options = new FileUploadOptions();
         // options.fileKey = "file";
         // options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
         // options.mimeType = "image/jpeg";
+        options.params = params;
 
         var ft = new FileTransfer();
-        ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile);
+        ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
       });
       $("#foto-invio-esito").html("Invio immagini completato");
     });
