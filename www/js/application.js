@@ -1951,7 +1951,9 @@ var Application = {
     //scatto foto
     $("#foto").on("click", "#foto-scatta", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
-        quality : 80,
+        quality : 30,
+        targetWidth: 100,
+        targetHeight: 100,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true });
@@ -1960,7 +1962,7 @@ var Application = {
     //prendo foto da galleria
     $("#foto").on("click", "#scegli-galleria", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
-        quality : 80,
+        quality : 30,
         sourceType: 0,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions });
@@ -1996,11 +1998,12 @@ var Application = {
   }, //foto fine
 
 
-  onUploadFile: function (r) {
-    alert(JSON.stringify(r));
+  onUploadFile: function(r) {
+    // alert(JSON.stringify(r));
+    $("#foto-invio-esito").append(JSON.stringify(r));
   },
 
-  onFailUploadFile: function (error) {
+  onFailUploadFile: function(error) {
     $("#foto-invio-esito").append("Impossibile caricare l'immagine");
   },
 
