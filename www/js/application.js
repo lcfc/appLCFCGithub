@@ -92,15 +92,33 @@ var Application = {
   },
 
   // iOS
-  onNotificationAPN: function(e) {
-    alert('notifica');
-    if(e.alert) { navigator.notification.alert(e.alert); }
-    if(e.sound) {
-      var snd = new Media(event.sound);
-      snd.play();
-    }
-    if(e.badge) { pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, e.badge); }
+  onNotificationAPN: function(event) {
+      var pushNotification = window.plugins.pushNotification;
+      console.log("Received a notification! " + event.alert);
+      console.log("event sound " + event.sound);
+      console.log("event badge " + event.badge);
+      console.log("event " + event);
+      if (event.alert) {
+          navigator.notification.alert(event.alert);
+      }
+      if (event.badge) {
+          console.log("Set badge on  " + pushNotification);
+          pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
+      }
+      if (event.sound) {
+          var snd = new Media(event.sound);
+          snd.play();
+      }
   },
+  // onNotificationAPN: function(e) {
+  //   alert('notifica');
+  //   if(e.alert) { navigator.notification.alert(e.alert); }
+  //   if(e.sound) {
+  //     var snd = new Media(event.sound);
+  //     snd.play();
+  //   }
+  //   if(e.badge) { pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, e.badge); }
+  // },
 
   // android
   onNotification: function(e) {
