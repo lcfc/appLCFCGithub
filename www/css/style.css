@@ -162,3 +162,11 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
 .ios7 {
     padding-top: 20px;
 }
+
+/*
+#pannello li a{border-right:10px solid transparent}
+#pannello li span{display:none;}
+#pannello .menu-home a{border-right:10px solid #c00;}
+#pannello .menu-classifica a{border-right:10px solid #00c;}
+#pannello .menu-risultati a{border-right:10px solid #0c0;}
+*/
