@@ -52,29 +52,28 @@ var Application = {
 
   }, //fine device ready
 
-
-  successHandler: function (result) {
+  successHandler: function(result) {
     console.log('result = ' + result);
   },
 
-  errorHandler: function (error) {
+  errorHandler: function(error) {
     console.log('error = ' + error);
   },
 
-  tokenHandler: function (result) {
+  tokenHandler: function(result) {
     localStorage.setItem('token',result);
     Application.registerToken("ios");
   },
 
-  registerToken: function (so) {
+  registerToken: function(so) {
     $.ajax({
       url: urlGestionale+"push_notification/token",
       data: {
         sistema_operativo: so,
         token: localStorage.getItem('token'),
-        anagrafica_id: 1,
-        // cellulare: MD5(cellulare), 
-        // secret: MD5(MD5(cellulare)+secret),
+        anagrafica_id: localStorage.getItem('anagrafica_id'),
+        cellulare: MD5(cellulare), 
+        secret: MD5(MD5(cellulare)+secret),
       },
       type: 'post',
       crossDomain: true,
@@ -83,7 +82,7 @@ var Application = {
         if(data.msg == 'ok') {
           alert('inserito');
         } else {
-          alert('non inserito');
+          alert('non inserito '+data);
         }
       },
       error: function(data) {
@@ -92,10 +91,8 @@ var Application = {
     });
   },
 
-
-
   // iOS
-  onNotificationAPN: function (e) {
+  onNotificationAPN: function(e) {
     alert('notifica');
     if(e.alert) { navigator.notification.alert(e.alert); }
     if(e.sound) {
@@ -106,42 +103,37 @@ var Application = {
   },
 
   // android
-  onNotification: function (e) {
-    $("#platform").append('<br/>EVENT -> RECEIVED:' + e.event);
-    switch( e.event ) {
+  onNotification: function(e) {
+    switch(e.event) {
       case 'registered':
         if ( e.regid.length > 0 ) {
-            $("#platform").append('<br/>REGISTERED -> REGID:' + e.regid);
-            localStorage.setItem('token',e.regid);
-            Application.registerToken("android");
+          localStorage.setItem('token',e.regid);
+          Application.registerToken("android");
         }
       break;
       case 'message':
-          // if this flag is set, this notification happened while we were in the foreground.
-          // you might want to play a sound to get the user's attention, throw up a dialog, etc.
-          if ( e.foreground ) {
-              $("#platform").append('<br/>--INLINE NOTIFICATION--' + '</li>');
+        // if this flag is set, this notification happened while we were in the foreground.
+        // you might want to play a sound to get the user's attention, throw up a dialog, etc.
+        if (e.foreground) {
+          $("#platform").append('<br/>--INLINE NOTIFICATION--' + '</li>');
 
-              // on Android soundname is outside the payload.
-              // On Amazon FireOS all custom attributes are contained within payload
-              var soundfile = e.soundname || e.payload.sound;
-              // if the notification contains a soundname, play it.
-              var my_media = new Media("/android_asset/www/"+ soundfile);
-              my_media.play();
-          } else {  // otherwise we were launched because the user touched a notification in the notification tray.
-            if ( e.coldstart ) {
-              $("#platform").append('<br/>--COLDSTART NOTIFICATION--');
-            } else {
-              $("#platform").append('<br/>--BACKGROUND NOTIFICATION--');
-            }
+          // on Android soundname is outside the payload.
+          // On Amazon FireOS all custom attributes are contained within payload
+          var soundfile = e.soundname || e.payload.sound;
+          // if the notification contains a soundname, play it.
+          var my_media = new Media("/android_asset/www/"+ soundfile);
+          my_media.play();
+        } else {  // otherwise we were launched because the user touched a notification in the notification tray.
+          if ( e.coldstart ) {
+            $("#platform").append('<br/>--COLDSTART NOTIFICATION--');
+          } else {
+            $("#platform").append('<br/>--BACKGROUND NOTIFICATION--');
           }
-          alert(e.payload);
-          navigator.notification.alert(e.payload.message);
-         $("#platform").append('<br/>MESSAGE -> MSG: ' + e.payload.message);
-             //Only works for GCM
-         $("#platform").append('<br/>MESSAGE -> MSGCNT: ' + e.payload.msgcnt);
-         //Only works on Amazon Fire OS
-         $("#platform").append('<br/>MESSAGE -> TIME: ' + e.payload.timeStamp);
+        }
+        navigator.notification.alert(e.payload.message);
+        $("#platform").append('<br/>MESSAGE -> MSG: ' + e.payload.message);
+        //Only works for GCM
+        $("#platform").append('<br/>MESSAGE -> MSGCNT: ' + e.payload.msgcnt);
       break;
       case 'error':
         $("#platform").append('<br/>ERROR -> MSG:' + e.msg);
@@ -151,14 +143,6 @@ var Application = {
       break;
     }
   },
-
-
-
-
-
-
-
-
 
   orientationChange: function(e) {
     if(window.orientation == 90 || window.orientation == -90) {
@@ -1968,26 +1952,21 @@ var Application = {
     $("#foto").on("click", "#foto-scatta", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality : 80,
-        // allowEdit : true,
         correctOrientation: true,
-        // targetWidth: 100,
-        // targetHeight: 100,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true });
     });
 
+    //prendo foto da galleria
     $("#foto").on("click", "#scegli-galleria", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality : 80,
         sourceType: 0,
-        // allowEdit : true,
         correctOrientation: true,
-        // targetWidth: 100,
-        // targetHeight: 100,
         popoverOptions: CameraPopoverOptions });
     });
 
-    //invio foto
+    //invio foto selezionate
     $("#foto").on("click", "#foto-invia", function() {
       $("#foto-invio-esito").html("Invio immagini in corso...");
       // var params = {};
@@ -2014,33 +1993,6 @@ var Application = {
       $(this).toggleClass("image-selected");
     });
 
-    $("#foto").on("click", "#prova", function(){
-      $.ajax({
-        url: urlGestionale+"push_notification/token",
-        data: {
-          sistema_operativo: "ios",
-          token: localStorage.getItem('token'),
-          anagrafica_id: 1,
-          // cellulare: MD5(cellulare), 
-          // secret: MD5(MD5(cellulare)+secret),
-        },
-        type: 'post',
-        crossDomain: true,
-        dataType: 'jsonp',
-        success: function(data) {
-          if(data.msg == 'ok') {
-            alert('inserito');
-          } else {
-            alert('non inserito');
-          }
-        },
-        error: function(data) {
-          alert('ok'+data);
-        }
-      });
-      
-    });
-
   }, //foto fine
 
 
@@ -2065,7 +2017,6 @@ var Application = {
 Application.initialize();
 
 $(document).on('pageshow','.page',function() {Application.initMenu();
-  //page = $.mobile.path.getLocation().replace($.mobile.path.getDocumentBase(),'');
   page = $(this).attr("id")+".html";
   if(page == "index.html") page = "home.html";
   // Application.setStatistichePagine();
