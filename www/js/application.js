@@ -66,12 +66,13 @@ var Application = {
   },
 
   registerToken: function(so) {
+    cellulare = typeof device === "undefined" ? '0' : device.uuid;
     $.ajax({
       url: urlGestionale+"push_notification/token",
       data: {
         sistema_operativo: so,
         token: localStorage.getItem('token'),
-        anagrafica_id: localStorage.getItem('anagrafica_id'),
+        anagrafica_id: localStorage.getItem('anagrafica_id') || 0,
         cellulare: MD5(cellulare), 
         secret: MD5(MD5(cellulare)+secret),
       },
