@@ -163,10 +163,24 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
     padding-top: 20px;
 }
 
-/*
+
 #pannello li a{border-right:10px solid transparent}
 #pannello li span{display:none;}
 #pannello .menu-home a{border-right:10px solid #c00;}
 #pannello .menu-classifica a{border-right:10px solid #00c;}
 #pannello .menu-risultati a{border-right:10px solid #0c0;}
-*/
+#pannello .menu-classsifica-marcatori a{border-right:10px solid #fc0;}
+#pannello .menu-calendario a{border-right:10px solid #c0f;}
+#pannello .menu-classifica-formazione a{border-right:10px solid #0cf;}
+#pannello .menu-classifica-arbitro a{border-right:10px solid #fc0;}
+#pannello .menu-referti a{border-right:10px solid #f0c;}
+#pannello .menu-squadre a{border-right:10px solid #0cf;}
+#pannello .menu-comunicato a{border-right:10px solid #0c0;}
+#pannello .menu-foto a{border-right:10px solid #ffc;}
+#pannello .menu-news a{border-right:10px solid #00f;}
+#pannello .menu-normativa a{border-right:10px solid #e00;}
+#pannello .menu-normativa-preferiti a{border-right:10px solid #fc0;}
+#pannello .menu-albo-oro a{border-right:10px solid #6c6;}
+#pannello .menu-numeri-utili a{border-right:10px solid #00d;}
+#pannello .menu-settings a{border-right:10px solid #c00;}
+#pannello .menu-credits a{border-right:10px solid #0ce;}
