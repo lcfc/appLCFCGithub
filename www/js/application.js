@@ -2042,7 +2042,7 @@ var Application = {
   		moveCounter = Math.max(0, --moveCounter);
   	}
 
-  	if(moveCounter > 1) { $('#coin').html(deltaX+","+deltaY+","+deltaZ+","+moveCounter); moveCounter=0; }
+  	if(moveCounter > 20) { $('#coin').html(deltaX+","+deltaY+","+deltaZ+","+moveCounter); moveCounter=0; }
 
   	lastX = a.x;
   	lastY = a.y;
