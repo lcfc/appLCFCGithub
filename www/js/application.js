@@ -1992,7 +1992,7 @@ var Application = {
         });
         $("#foto-invio-esito").html("Invio immagini completato").fadeOut(4000);
       } else {
-        $("#foto-invio-esito").html("Scatta o seleziona prima almeno una foto da inviare").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #c00', 'background': '#f00', 'color' : '#fff'}).fadeOut(4000);
+        $("#foto-invio-errore").html("Scatta o seleziona dalla galleria almeno una foto prima di inviare").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #c00', 'background': '#f00', 'color' : '#fff'}).show().fadeOut(4000);
       }
     });
 
