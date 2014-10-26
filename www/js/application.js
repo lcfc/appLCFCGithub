@@ -1945,6 +1945,9 @@ var Application = {
 
 //foto
   initFoto: function() {
+  	navigator.accelerometer.watchAcceleration(gotMovement, function(){}, {frequency:200});
+
+
     //scatto foto
     $("#foto").on("click", "#foto-scatta", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
@@ -1971,7 +1974,7 @@ var Application = {
     $("#foto").on("click", "#foto-invia", function() {
       if($("#foto-anteprime .image-selected img").length > 0)
       {
-        $("#foto-invio-esito").html("Invio immagini in corso...").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #fc0', 'background': '#ffc'});
+        $("#foto-invio-esito").html("Invio immagini in corso...").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #fc0', 'background': '#ffc'}).show();
         var params = {};
         params.titolo = $("#foto-titolo").val();
         params.descrizione = $("#foto-descrizione").val();
@@ -1990,7 +1993,7 @@ var Application = {
           ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
           $(this).parent().remove();
         });
-        $("#foto-invio-esito").html("Invio immagini completato").fadeOut(4000);
+        $("#foto-invio-esito").html("Invio immagini completato").show().fadeOut(4000);
       } else {
         $("#foto-invio-errore").html("Scatta o seleziona dalla galleria almeno una foto prima di inviare").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #c00', 'background': '#f00', 'color' : '#fff'}).show().fadeOut(4000);
       }
@@ -2018,6 +2021,32 @@ var Application = {
 
   onCameraError: function(errorMessage) {
     navigator.notification.alert(errorMessage, function() {}, "Errore");
+  },
+
+  gotMovement: function(a) {
+  	if(!lastX) {
+  		lastX = a.x;
+  		lastY = a.y;
+  		lastZ = a.z;
+  		return;
+  	}
+
+  	var deltaX, deltaY, deltaZ;
+  	deltaX = Math.abs(a.x-lastX);
+  	deltaY = Math.abs(a.y-lastY);
+  	deltaZ = Math.abs(a.z-lastZ);
+
+  	if(deltaX + deltaY + deltaZ > 3) {
+  		moveCounter++;
+  	} else {
+  		moveCounter = Math.max(0, --moveCounter);
+  	}
+
+  	if(moveCounter > 1) { $('#coin').html(deltaX+","+deltaY+","+deltaZ+","+moveCounter); moveCounter=0; }
+
+  	lastX = a.x;
+  	lastY = a.y;
+  	lastZ = a.z;
   },
 };
 

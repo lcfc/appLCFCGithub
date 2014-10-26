@@ -5,6 +5,9 @@ var lettere = ['', 'bis', 'ter', 'quater', 'quinquies', 'sexies', 'septies', 'oc
 var secret = 'J8|tw&2ZpEyyB*#UHCB|%*q0x(R~T%F3lO8eZW#k[65OenAk^]S1|,5F,QqX:<D.';
 var tipoTessere = ['', 'BA', 'BS', 'IA', 'IB'];
 
+var lastX,lastY,lastZ;
+var moveCounter = 0;
+
 // funzioni aggiuntive
 var Utility = {
   formatDate: function(date) {
