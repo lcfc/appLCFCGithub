@@ -164,8 +164,9 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
 }
 
 
-#pannello li a{border-right:10px solid transparent}
 #pannello li span{display:none;}
+/*
+#pannello li a{border-right:10px solid transparent}
 #pannello .menu-home a{border-right:10px solid #c00;}
 #pannello .menu-classifica a{border-right:10px solid #00c;}
 #pannello .menu-risultati a{border-right:10px solid #0c0;}
@@ -184,3 +185,4 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
 #pannello .menu-numeri-utili a{border-right:10px solid #00d;}
 #pannello .menu-settings a{border-right:10px solid #c00;}
 #pannello .menu-credits a{border-right:10px solid #0ce;}
+*/
