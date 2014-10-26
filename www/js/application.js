@@ -14,7 +14,7 @@ var Application = {
   },
 
   onDeviceReady: function() {
-    version = parseFloat(window.device.version) >= 7.0 ? "ios7" : "";
+    version = parseFloat(window.device.version) >= 7.0 && device.platform == "iOS" ? "ios7" : "";
     $('html').addClass(version);
     Application.orientationChange();
     var contentScroll = new iScroll('scroll');
@@ -29,7 +29,7 @@ var Application = {
 
     pushNotification = window.plugins.pushNotification;
 
-    $("#platform").append('<li>registering ' + device.platform + '</li>');
+    //$("#platform").append('<li>registering ' + device.platform + '</li>');
     if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
       pushNotification.register(
       Application.successHandler,
@@ -52,13 +52,9 @@ var Application = {
 
   }, //fine device ready
 
-  successHandler: function(result) {
-    console.log('result = ' + result);
-  },
+  successHandler: function(result) {},
 
-  errorHandler: function(error) {
-    console.log('error = ' + error);
-  },
+  errorHandler: function(error) {},
 
   tokenHandler: function(result) {
     localStorage.setItem('token',result);
@@ -80,46 +76,28 @@ var Application = {
       crossDomain: true,
       dataType: 'jsonp',
       success: function(data) {
-        if(data.msg == 'ok') {
-          alert('inserito');
-        } else {
-          alert('non inserito '+data);
-        }
+        if(data.msg == 'ok') {}
       },
       error: function(data) {
-        alert('ko'+data);
+        navigator.notification.alert("impossibile registrare il telefono", function() {}, "Errore");
       }
     });
   },
 
   // iOS
-  onNotificationAPN: function(event) {
-      var pushNotification = window.plugins.pushNotification;
-      $("#platform").append("Received a notification! " + event.alert);
-      $("#platform").append("event sound " + event.sound);
-      $("#platform").append("event badge " + event.badge);
-      $("#platform").append("event " + event);
-      if (event.alert) {
-          navigator.notification.alert(event.alert);
-      }
-      if (event.badge) {
-          console.log("Set badge on  " + pushNotification);
-          pushNotification.setApplicationIconBadgeNumber(this.successHandler, event.badge);
-      }
-      if (event.sound) {
-          var snd = new Media(event.sound);
-          snd.play();
-      }
+  onNotificationAPN: function(e) {
+    var pushNotification = window.plugins.pushNotification;
+    if (e.alert) {
+      navigator.notification.alert(e.alert, function(){}, "LCFC");
+    }
+    if (e.badge) {
+      pushNotification.setApplicationIconBadgeNumber(this.successHandler, e.badge);
+    }
+    if (e.sound) {
+      var snd = new Media(e.sound);
+      snd.play();
+    }
   },
-  // onNotificationAPN: function(e) {
-  //   alert('notifica');
-  //   if(e.alert) { navigator.notification.alert(e.alert); }
-  //   if(e.sound) {
-  //     var snd = new Media(event.sound);
-  //     snd.play();
-  //   }
-  //   if(e.badge) { pushNotification.setApplicationIconBadgeNumber(successHandler, errorHandler, e.badge); }
-  // },
 
   // android
   onNotification: function(e) {
@@ -165,9 +143,9 @@ var Application = {
 
   orientationChange: function(e) {
     if(window.orientation == 90 || window.orientation == -90) {
-       $('.portrait').hide();$('.landscape').show();
+      $('.portrait').hide();$('.landscape').show();
     } else {
-       $('.landscape').hide();$('.portrait').show();
+      $('.landscape').hide();$('.portrait').show();
     }
   },
 
@@ -1982,6 +1960,8 @@ var Application = {
     $("#foto").on("click", "#scegli-galleria", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality: 90,
+        targetWidth: 100,
+        targetHeight: 100,
         sourceType: 0,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions });
@@ -1989,26 +1969,31 @@ var Application = {
 
     //invio foto selezionate
     $("#foto").on("click", "#foto-invia", function() {
-      $("#foto-invio-esito").html("Invio immagini in corso...").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #fc0', 'background': '#ffc'});
-      var params = {};
-      params.titolo = $("#foto-titolo").val();
-      params.descrizione = $("#foto-descrizione").val();
+      if($("#foto-anteprime .image-selected img").length > 0)
+      {
+        $("#foto-invio-esito").html("Invio immagini in corso...").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #fc0', 'background': '#ffc'});
+        var params = {};
+        params.titolo = $("#foto-titolo").val();
+        params.descrizione = $("#foto-descrizione").val();
 
-      // options.params = params;
-      $("#foto-anteprime .image-selected img").each(function(i) {
-        fileUrl = $(this).attr("src");
+        // options.params = params;
+        $("#foto-anteprime .image-selected img").each(function(i) {
+          fileUrl = $(this).attr("src");
 
-        var options = new FileUploadOptions();
-        // options.fileKey = "file";
-        // options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-        // options.mimeType = "image/jpeg";
-        options.params = params;
+          var options = new FileUploadOptions();
+          // options.fileKey = "file";
+          // options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
+          // options.mimeType = "image/jpeg";
+          options.params = params;
 
-        var ft = new FileTransfer();
-        ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
-        $(this).parent().remove();
-      });
-      $("#foto-invio-esito").html("Invio immagini completato").fadeOut(4000);
+          var ft = new FileTransfer();
+          ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
+          $(this).parent().remove();
+        });
+        $("#foto-invio-esito").html("Invio immagini completato").fadeOut(4000);
+      } else {
+        $("#foto-invio-esito").html("Scatta o seleziona prima almeno una foto da inviare").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #c00', 'background': '#f00', 'color' : '#fff'}).fadeOut(4000);
+      }
     });
 
     $("#foto-anteprime").on("click", "div", function(){
@@ -2016,7 +2001,6 @@ var Application = {
     });
 
   }, //foto fine
-
 
   onUploadFile: function(r) {
     // $("#foto-invio-esito").html("Foto inviata");
