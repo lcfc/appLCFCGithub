@@ -2040,9 +2040,9 @@ var Application = {
   	} else {
   		moveCounter = Math.max(0, --moveCounter);
   	}
-    $('#coin').html(deltaX+","+deltaY+","+deltaZ+","+moveCounter+"<br/>"); 
+    $('#coin').append(deltaX+","+deltaY+","+deltaZ+","+moveCounter+"<br/>"); 
 
-  	if(moveCounter > 50) { $('#coin').html(moveCounter); moveCounter=0; }
+  	if(moveCounter > 30) { $('#coin').append(moveCounter); moveCounter=0; }
 
   	lastX = a.x;
   	lastY = a.y;
