@@ -2037,10 +2037,10 @@ var Application = {
 
   	if(deltaX + deltaY + deltaZ > 3) {
   		moveCounter++;
-      $('#coin').html(deltaX+","+deltaY+","+deltaZ+","+moveCounter+"<br/>"); 
   	} else {
   		moveCounter = Math.max(0, --moveCounter);
   	}
+    $('#coin').html(deltaX+","+deltaY+","+deltaZ+","+moveCounter+"<br/>"); 
 
   	if(moveCounter > 50) { $('#coin').html(moveCounter); moveCounter=0; }
 
