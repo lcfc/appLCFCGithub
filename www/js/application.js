@@ -76,7 +76,7 @@ var Application = {
       crossDomain: true,
       dataType: 'jsonp',
       success: function(data) {
-        if(data.msg == 'ok') {}
+        if(data.msg == 'ok') { alert(localStorage.getItem('anagrafica_id')) }
       },
       error: function(data) {
         navigator.notification.alert("impossibile registrare il telefono", function() {}, "Errore");
@@ -1945,8 +1945,7 @@ var Application = {
 
 //foto
   initFoto: function() {
-  	navigator.accelerometer.watchAcceleration(Application.gotMovement, function(){}, {frequency:200});
-
+    // navigator.accelerometer.watchAcceleration(Application.gotMovement, function(){}, {frequency:200});
 
     //scatto foto
     $("#foto").on("click", "#foto-scatta", function() {
@@ -2014,7 +2013,7 @@ var Application = {
   },
 
   onCameraSuccess: function(imageURI) {
-    $("#foto-anteprime").prepend("<div class='left'><span></span><img src='"+imageURI+"' /></div>");
+    $("#foto-anteprime").prepend("<div class='left image-selected'><span></span><img src='"+imageURI+"' /></div>");
     $(".no-foto").hide();
     $("#foto-form").removeClass("none");
   },
@@ -2038,11 +2037,12 @@ var Application = {
 
   	if(deltaX + deltaY + deltaZ > 3) {
   		moveCounter++;
+      $('#coin').html(deltaX+","+deltaY+","+deltaZ+","+moveCounter+"<br/>"); 
   	} else {
   		moveCounter = Math.max(0, --moveCounter);
   	}
 
-  	if(moveCounter > 20) { $('#coin').html(deltaX+","+deltaY+","+deltaZ+","+moveCounter); moveCounter=0; }
+  	if(moveCounter > 50) { $('#coin').html(moveCounter); moveCounter=0; }
 
   	lastX = a.x;
   	lastY = a.y;
