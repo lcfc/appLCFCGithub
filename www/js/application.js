@@ -1945,7 +1945,7 @@ var Application = {
 
 //foto
   initFoto: function() {
-    // navigator.accelerometer.watchAcceleration(Application.gotMovement, function(){}, {frequency:200});
+    navigator.accelerometer.watchAcceleration(Application.gotMovement, function(){}, {frequency:200});
 
     //scatto foto
     $("#foto").on("click", "#foto-scatta", function() {
