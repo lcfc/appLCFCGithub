@@ -1945,7 +1945,7 @@ var Application = {
 
 //foto
   initFoto: function() {
-    navigator.accelerometer.watchAcceleration(Application.gotMovement, function(){}, {frequency:200});
+    // navigator.accelerometer.watchAcceleration(Application.gotMovement, function(){}, {frequency:200});
 
     //scatto foto
     $("#foto").on("click", "#foto-scatta", function() {
@@ -2042,7 +2042,7 @@ var Application = {
   	}
     $('#coin').append(deltaX+","+deltaY+","+deltaZ+","+moveCounter+"<br/>"); 
 
-  	if(moveCounter > 30) { $('#coin').append(moveCounter); moveCounter=0; }
+  	if(moveCounter > 10) { $('#coin').append(moveCounter); moveCounter=0; }
 
   	lastX = a.x;
   	lastY = a.y;

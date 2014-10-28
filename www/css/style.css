@@ -133,7 +133,7 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
 .no-foto{color:#999;font-size:20px;line-height:200%;text-align:center;}
 #foto-anteprime img{width:80px;height:80px;}
 #foto-anteprime div{position:relative;width:80px;height:80px;margin:0 5px 5px 0;}
-#foto-anteprime .image-selected span{position:absolute;top:0;right:0;width:24px;height:24px;background:url("../images/accept.png") no-repeat top right;}
+#foto-anteprime .image-selected span{position:absolute;top:0;right:0;width:24px;height:24px;background:url("../images/check.png") no-repeat top right;}
 
 
 /* Custom Icon*/
