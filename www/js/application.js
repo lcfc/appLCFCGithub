@@ -24,7 +24,6 @@ var Application = {
         window.gaPlugin.init(function(){}, function(){}, "UA-36975208-2", 10);
         clearInterval(window.gaInterval);
       }
-      
     }, 250);
 
     pushNotification = window.plugins.pushNotification;
@@ -103,40 +102,22 @@ var Application = {
   onNotification: function(e) {
     switch(e.event) {
       case 'registered':
-        if ( e.regid.length > 0 ) {
+        if(e.regid.length > 0) {
           localStorage.setItem('token',e.regid);
           Application.registerToken("android");
         }
       break;
       case 'message':
-        // if this flag is set, this notification happened while we were in the foreground.
-        // you might want to play a sound to get the user's attention, throw up a dialog, etc.
-        if (e.foreground) {
-          $("#platform").append('<br/>--INLINE NOTIFICATION--' + '</li>');
-
-          // on Android soundname is outside the payload.
-          // On Amazon FireOS all custom attributes are contained within payload
-          var soundfile = e.soundname || e.payload.sound;
-          // if the notification contains a soundname, play it.
-          var my_media = new Media("/android_asset/www/"+ soundfile);
-          my_media.play();
-        } else {  // otherwise we were launched because the user touched a notification in the notification tray.
-          if ( e.coldstart ) {
-            $("#platform").append('<br/>--COLDSTART NOTIFICATION--');
-          } else {
-            $("#platform").append('<br/>--BACKGROUND NOTIFICATION--');
-          }
-        }
+        var soundfile = e.soundname || e.payload.sound;
+        var snd = new Media("/android_asset/www/"+ soundfile);
+        snd.play();
         navigator.notification.alert(e.payload.message);
-        $("#platform").append('<br/>MESSAGE -> MSG: ' + e.payload.message);
-        //Only works for GCM
-        $("#platform").append('<br/>MESSAGE -> MSGCNT: ' + e.payload.msgcnt);
       break;
       case 'error':
-        $("#platform").append('<br/>ERROR -> MSG:' + e.msg);
+        console.log('ERROR -> MSG:' + e.msg);
       break;
       default:
-        $("#platform").append('<br/>EVENT -> Unknown, an event was received and we do not know what it is');
+        console.log('EVENT -> Evento non gestito');
       break;
     }
   },
@@ -1945,14 +1926,11 @@ var Application = {
 
 //foto
   initFoto: function() {
-    // navigator.accelerometer.watchAcceleration(Application.gotMovement, function(){}, {frequency:200});
 
     //scatto foto
     $("#foto").on("click", "#foto-scatta", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality: 90,
-        targetWidth: 100,
-        targetHeight: 100,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true });
@@ -1962,8 +1940,6 @@ var Application = {
     $("#foto").on("click", "#scegli-galleria", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality: 90,
-        targetWidth: 100,
-        targetHeight: 100,
         sourceType: 0,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions });
@@ -2022,32 +1998,6 @@ var Application = {
     navigator.notification.alert(errorMessage, function() {}, "Errore");
   },
 
-  gotMovement: function(a) {
-  	if(!lastX) {
-  		lastX = a.x;
-  		lastY = a.y;
-  		lastZ = a.z;
-  		return;
-  	}
-
-  	var deltaX, deltaY, deltaZ;
-  	deltaX = Math.abs(a.x-lastX);
-  	deltaY = Math.abs(a.y-lastY);
-  	deltaZ = Math.abs(a.z-lastZ);
-
-  	if(deltaX + deltaY + deltaZ > 3) {
-  		moveCounter++;
-  	} else {
-  		moveCounter = Math.max(0, --moveCounter);
-  	}
-    $('#coin').append(deltaX+","+deltaY+","+deltaZ+","+moveCounter+"<br/>"); 
-
-  	if(moveCounter > 10) { $('#coin').append(moveCounter); moveCounter=0; }
-
-  	lastX = a.x;
-  	lastY = a.y;
-  	lastZ = a.z;
-  },
 };
 
 Application.initialize();

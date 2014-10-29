@@ -40,6 +40,7 @@ body{margin-top:20px;}
 
 /*generico*/
 #scroll{-webkit-overflow-scrolling: touch;}
+h1 img{vertical-align:middle;}
 
 /*no-internet*/
 #no-internet-content img{text-align:center;}
@@ -163,9 +164,9 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
     padding-top: 20px;
 }
 
-
-#pannello li span{display:none;}
 /*
+#pannello li span{display:none;}
+
 #pannello li a{border-right:10px solid transparent}
 #pannello .menu-home a{border-right:10px solid #c00;}
 #pannello .menu-classifica a{border-right:10px solid #00c;}
