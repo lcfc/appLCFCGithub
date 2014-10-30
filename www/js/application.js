@@ -1931,6 +1931,8 @@ var Application = {
     $("#foto").on("click", "#foto-scatta", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality: 90,
+        targetWidth: 2000,
+        targetHeight: 2000,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true });
@@ -1940,6 +1942,8 @@ var Application = {
     $("#foto").on("click", "#scegli-galleria", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality: 90,
+        targetWidth: 2000,
+        targetHeight: 2000,
         sourceType: 0,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions });
