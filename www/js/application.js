@@ -68,14 +68,14 @@ var Application = {
         sistema_operativo: so,
         token: localStorage.getItem('token'),
         anagrafica_id: localStorage.getItem('anagrafica_id') || 0,
-        cellulare: MD5(cellulare), 
+        cellulare: MD5(cellulare),
         secret: MD5(MD5(cellulare)+secret),
       },
       type: 'post',
       crossDomain: true,
       dataType: 'jsonp',
       success: function(data) {
-        if(data.msg == 'ok') { alert(localStorage.getItem('anagrafica_id')) }
+        if(data.msg == 'ok') {}
       },
       error: function(data) {
         navigator.notification.alert("impossibile registrare il telefono", function() {}, "Errore");
