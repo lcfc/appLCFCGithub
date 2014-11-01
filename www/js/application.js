@@ -369,7 +369,7 @@ var Application = {
               },
             });
           } else {
-            alert('Devi indicare un voto da 1 a 3 per ogni voce');
+            navigator.notification.alert('Devi indicare un voto da 1 a 3 per ogni voce');
           }
         });
 
@@ -1602,7 +1602,7 @@ var Application = {
   resetPreferiti: function(){
     if(confirm('Sei sicuro di voler cancellare tutti i preferiti?')){
       localStorage.removeItem('preferiti');
-      alert('Preferiti cancellati');
+      navigator.notification.alert('Preferiti cancellati');
     }
   },
 
@@ -1759,7 +1759,7 @@ var Application = {
             term: $input.val()
           },
           error: function() {
-            alert('Questa funzione richiede una connessione internet');
+            navigator.notification.alert('Questa funzione richiede una connessione internet');
           },
         })
         .then( function (response) {
@@ -1931,8 +1931,8 @@ var Application = {
     $("#foto").on("click", "#foto-scatta", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality: 90,
-        targetWidth: 500,
-        targetHeight: 500,
+        targetWidth: 2000,
+        targetHeight: 2000,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions,
         saveToPhotoAlbum: true });
@@ -1942,8 +1942,8 @@ var Application = {
     $("#foto").on("click", "#scegli-galleria", function() {
       navigator.camera.getPicture(Application.onCameraSuccess, Application.onCameraError,{ 
         quality: 90,
-        targetWidth: 500,
-        targetHeight: 500,
+        targetWidth: 2000,
+        targetHeight: 2000,
         sourceType: 0,
         correctOrientation: true,
         popoverOptions: CameraPopoverOptions });
@@ -1963,9 +1963,6 @@ var Application = {
           fileUrl = $(this).attr("src");
 
           var options = new FileUploadOptions();
-          // options.fileKey = "file";
-          // options.fileName = fileURL.substr(fileURL.lastIndexOf('/') + 1);
-          // options.mimeType = "image/jpeg";
           options.params = params;
 
           var ft = new FileTransfer();
