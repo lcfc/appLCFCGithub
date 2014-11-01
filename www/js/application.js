@@ -1967,7 +1967,7 @@ var Application = {
 
           var ft = new FileTransfer();
           ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
-          $(this).parent().remove();
+          //$(this).parent().remove();
         });
         $("#foto-invio-esito").html("Invio immagini completato").show().fadeOut(4000);
       } else {
@@ -1982,6 +1982,7 @@ var Application = {
   }, //foto fine
 
   onUploadFile: function(r) {
+    $("#foto-anteprime .image-selected:first-child").remove();
     // $("#foto-invio-esito").html("Foto inviata");
   },
 
