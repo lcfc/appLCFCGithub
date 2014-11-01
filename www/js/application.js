@@ -1981,7 +1981,7 @@ var Application = {
 
   onUploadFile: function(r) {
     $("#foto-anteprime .image-selected:first-child").remove();
-    if($("#foto-anteprime .image-selected") == 0) {
+    if($("#foto-anteprime .image-selected").length == 0) {
       $("#foto-invio-esito").html("Invio immagini completato").show().fadeOut(4000);
     }
   },
