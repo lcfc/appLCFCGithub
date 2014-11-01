@@ -1958,18 +1958,16 @@ var Application = {
         params.titolo = $("#foto-titolo").val();
         params.descrizione = $("#foto-descrizione").val();
 
-        // options.params = params;
+        var options = new FileUploadOptions();
+        options.params = params;
+
         $("#foto-anteprime .image-selected img").each(function(i) {
           fileUrl = $(this).attr("src");
-
-          var options = new FileUploadOptions();
-          options.params = params;
 
           var ft = new FileTransfer();
           ft.upload(fileUrl, encodeURI(urlGestionale+"stampa/uploadFotoFromApp"), Application.onUploadFile, Application.onFailUploadFile, options);
           //$(this).parent().remove();
         });
-        $("#foto-invio-esito").html("Invio immagini completato").show().fadeOut(4000);
       } else {
         $("#foto-invio-errore").html("Scatta o seleziona dalla galleria almeno una foto prima di inviare").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #c00', 'background': '#f00', 'color' : '#fff'}).show().fadeOut(4000);
       }
@@ -1983,7 +1981,9 @@ var Application = {
 
   onUploadFile: function(r) {
     $("#foto-anteprime .image-selected:first-child").remove();
-    // $("#foto-invio-esito").html("Foto inviata");
+    if($("#foto-anteprime .image-selected") == 0) {
+      $("#foto-invio-esito").html("Invio immagini completato").show().fadeOut(4000);
+    }
   },
 
   onFailUploadFile: function(error) {
