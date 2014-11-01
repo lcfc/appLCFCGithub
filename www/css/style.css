@@ -138,31 +138,28 @@ a.plus-star {width:24px;height:24px;background-image: url("../images/icon-star-e
 
 
 /* Custom Icon*/
-.ui-icon-classifica {background-image: url("../images/icon-classifica.png");}
-.ui-icon-risultati {background-image: url("../images/icon-risultati.png");}
-.ui-icon-marcatori {background-image: url("../images/icon-marcatori.png");}
-.ui-icon-calendario {background-image: url("../images/icon-calendario.png");}
-.ui-icon-contacts {background-image: url("../images/icon-contacts.png");}
-.ui-icon-credits {background-image: url("../images/icon-credits.png");}
-.ui-icon-settings {background-image: url("../images/icon-settings.png");}
-.ui-icon-index {background-image: url("../images/icon-index.png");}
-.ui-icon-normativa {background-image: url("../images/icon-normativa.png");}
-.ui-icon-preferiti {background-image: url("../images/icon-preferiti.png");}
-.ui-icon-login {background-image: url("../images/icon-login.png");}
-.ui-icon-referti {background-image: url("../images/icon-referti.png");}
-.ui-icon-comunicato {background-image: url("../images/icon-comunicato.png");}
-.ui-icon-arbitro-giudizio {background-image: url("../images/icon-arbitro-giudizio.png");}
-.ui-icon-formazione {background-image: url("../images/icon-formazione.png");}
-.ui-icon-news {background-image: url("../images/icon-news.png");}
-.ui-icon-squadre {background-image: url("../images/icon-squadre.png");}
+.ui-icon-classifica{background-image: url("../images/icon-classifica.png");}
+.ui-icon-risultati{background-image: url("../images/icon-risultati.png");}
+.ui-icon-marcatori{background-image: url("../images/icon-marcatori.png");}
+.ui-icon-calendario{background-image: url("../images/icon-calendario.png");}
+.ui-icon-contacts{background-image: url("../images/icon-contacts.png");}
+.ui-icon-credits{background-image: url("../images/icon-credits.png");}
+.ui-icon-settings{background-image: url("../images/icon-settings.png");}
+.ui-icon-index{background-image: url("../images/icon-index.png");}
+.ui-icon-normativa{background-image: url("../images/icon-normativa.png");}
+.ui-icon-preferiti{background-image: url("../images/icon-preferiti.png");}
+.ui-icon-login{background-image: url("../images/icon-login.png");}
+.ui-icon-referti{background-image: url("../images/icon-referti.png");}
+.ui-icon-comunicato{background-image: url("../images/icon-comunicato.png");}
+.ui-icon-arbitro-giudizio{background-image: url("../images/icon-arbitro-giudizio.png");}
+.ui-icon-formazione{background-image: url("../images/icon-formazione.png");}
+.ui-icon-news{background-image: url("../images/icon-news.png");}
+.ui-icon-squadre{background-image: url("../images/icon-squadre.png");}
+.ui-icon-foto{background-image: url("../images/icon-foto.png");}
+.ui-icon-albo-oro{background-image: url("../images/icon-albo-oro.png");}
 
-.ios7 .ui-header {
-    margin-top: 20px;
-    position: relative;
-}
-.ios7 {
-    padding-top: 20px;
-}
+.ios7 {padding-top:20px;}
+.ios7 .ui-header{position:relative;margin-top:20px;}
 
 /*
 #pannello li span{display:none;}

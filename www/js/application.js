@@ -1953,7 +1953,7 @@ var Application = {
     $("#foto").on("click", "#foto-invia", function() {
       if($("#foto-anteprime .image-selected img").length > 0)
       {
-        $("#foto-invio-esito").html("Invio immagini in corso...").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #fc0', 'background': '#ffc'}).show();
+        $("#foto-invio-esito").html("Invio immagini in corso. A seconda della velocità di connessione ci potrebbe volere più o meno tempo.").css({'margin-bottom': '5px', 'padding': '5px', 'border':'1px solid #fc0', 'background': '#ffc'}).show();
         var params = {};
         params.titolo = $("#foto-titolo").val();
         params.descrizione = $("#foto-descrizione").val();
