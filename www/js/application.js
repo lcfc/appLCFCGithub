@@ -28,7 +28,6 @@ var Application = {
 
     pushNotification = window.plugins.pushNotification;
 
-    //$("#platform").append('<li>registering ' + device.platform + '</li>');
     if ( device.platform == 'android' || device.platform == 'Android' || device.platform == "amazon-fireos" ){
       pushNotification.register(
       Application.successHandler,
@@ -132,8 +131,18 @@ var Application = {
 
 //Index
 	initIndex: function() {
-    // Application.sendStatistichePagine();
     var markup = "";
+    anno = localStorage.getItem('anno');
+    annoTime = localStorage.getItem('anno_time');
+    if(Utility.boolInternetConnection() && !anno && (!annoTime || annoTime > new Date().getTime() - 8*60*60*1000)) // la cache dell'anno dura 8 ore
+    {
+      var url = urlGestionale+"config/exportPerSito?campo=annoApp&callback=?";
+      $.getJSON(url, function(anno) {
+        anno = localStorage.setItem('anno', anno);
+        annoTime = localStorage.setItem('anno_time', new Date().getTime());
+      });
+    }
+
     squadra = localStorage.getItem('squadra');
     squadraId = localStorage.getItem('squadra_id');
     if(squadra)
@@ -156,7 +165,7 @@ var Application = {
       "</div>"+
       "<div class='ui-grid-solo suggerimenti'>"+
         "<div class='ui-block-a'>"+
-					"<div class='ui-body ui-body-d'>Per visualizzare velocemente i dati della tua squadra preferita inseriscila dal menù opzioni.<a data-role='button' class='settings-button' href='settings.html'>Opzioni</a></div>"+
+					"<div class='ui-body ui-body-d'>Per visualizzare velocemente i dati della tua squadra preferita inseriscila dal menù opzioni.<a data-role='button' class='settings-button' href='settings.html'>Impostazioni</a></div>"+
         "</div>"+
       "</div>";
       $('.home-no-squadra').html(markup).trigger('create');
@@ -224,7 +233,7 @@ var Application = {
   		    result.data+" h."+result.ora+"<br/>"+
   		    "<h3><a data-parm='"+result.id+"'>"+result.locale+" - "+result.ospite+"</a></h3>"+
   		    "<h2>"+result.reti_locale+" - "+result.reti_ospite+"</h2>"+
-          "<a data-role='button' data-parm='"+result.id+"' class='referto-voto'>Vota Arbitro</a>"+
+          "<a data-role='button' data-parm='"+result.id+"' class='referto-voto'>Vota Arbitro/Top</a>"+
   		  "</div>";
       } else {
         markup += "<div class='ui-body ui-body-d a-center'>Nessun incontro trovato o ancora disputato</div>";
@@ -262,67 +271,55 @@ var Application = {
 				  Application.garaSospesaRinviata(referto)+
 				  "<div class='ui-grid-solo'>"+
 				    "<div class='ui-block-a'>"+
-				      "<div class='ui-body ui-body-d referto-arbitro'>"+
-				        Utility.formatDate(referto.data)+" "+(Utility.formatHour(referto.ora) || '')+" - Arb. "+(referto.arbitro_abbreviato || 'non ancora designato')+"<br/>"+referto.impianto+"<br/>"+
-				        Application.votoArbitroPossibile(referto)+
+				      "<div class='ui-body ui-body-d'>"+
+				        "<div>"+Utility.formatDate(referto.data)+" "+(Utility.formatHour(referto.ora) || '')+" - Arb. "+(referto.arbitro_abbreviato || 'non ancora designato')+"<br/>"+referto.impianto+"</div>"+
+                "<div class='referto-arbitro'>"+
+				          "<a data-role='button' id='button-voto-arbitro' class='referto-voto none'>Vota Arbitro</a>"+
+      			      "<div id='form-voto-arbitro' class='none'>"+
+                    "<label for='slider-fill'>Comportamento</label>: <strong></strong>"+
+                    "<input type='range' name='comportamento' id='arbitro-comportamento' value='0' min='0' max='3' step='1' data-highlight='true'>"+
+                    "<label for='slider-fill'>Prestazione tecnica</label>: <strong></strong>"+
+                    "<input type='range' name='prestazione-tecnica' id='arbitro-prestazione-tecnica' value='0' min='0' max='3' step='1' data-highlight='true'>"+
+                    "<label for='slider-fill'>Prestazione atletica</label>: <strong></strong>"+
+                    "<input type='range' name='prestazione-atletica' id='arbitro-prestazione-atletica' value='0' min='0' max='3' step='1' data-highlight='true'>"+
+                    "<a data-role='button' data-theme='a' id='referto-voto-invio'>Invia voto</a>"+
+                  "</div>"+
+                  "<div class='referto-arbitro-voto'></div>"+
+				        "</div>"+
+                "<div class='referto-top'>"+
+				          "<a data-role='button' id='button-voto-top' class='referto-voto none'>Vota Top</a>"+
+      			      "<div id='form-voto-top' class='none'>"+
+                    "<select name='top-locale' id='top-locale'>"+Application.selectTop(referto.formazione_locale, "locale")+"</select>"+
+                    "<select name='top-ruolo-locale' id='top-ruolo-locale'>"+Application.selectRuoloTop()+"</select>"+
+                    "<select name='top-ospite' id='top-ospite'>"+Application.selectTop(referto.formazione_ospite, "ospite")+"</select>"+
+                    "<select name='top-ruolo-ospite' id='top-ruolo-ospite'>"+Application.selectRuoloTop()+"</select>"+
+                    "<a data-role='button' data-theme='a' id='top-voto-invio'>Invia voto</a>"+
+                  "</div>"+
+                  "<div class='referto-top-voto'>"+
+                    "<div id='top-locale-selected'></div>"+
+                    "<div id='top-ospite-selected'></div>"+
+                  "</div>"+
+    				    "</div>"+
   				    "</div>"+
   				  "</div>"+
   			  "</div>"+
-  			  "<div id='form-voto-arbitro' class='ui-grid-solo none'>"+
-  			    "<div class='ui-block-a'>"+
-  			      "<div class='ui-body ui-body-d'>"+
-                "<label for='slider-fill'>Comportamento</label>: <strong></strong>"+
-                "<input type='range' name='comportamento' id='arbitro-comportamento' value='0' min='0' max='3' step='1' data-highlight='true'>"+
-                "<label for='slider-fill'>Prestazione tecnica</label>: <strong></strong>"+
-                "<input type='range' name='prestazione-tecnica' id='arbitro-prestazione-tecnica' value='0' min='0' max='3' step='1' data-highlight='true'>"+
-                "<label for='slider-fill'>Prestazione atletica</label>: <strong></strong>"+
-                "<input type='range' name='prestazione-atletica' id='arbitro-prestazione-atletica' value='0' min='0' max='3' step='1' data-highlight='true'>"+
-                "<a data-role='button' data-theme='a' id='referto-voto-invio'>Invia voto</a>"+
-              "</div>"+
-            "</div>"+
-          "</div>"+
-				  "<div class='ui-grid-solo'>"+
-				    "<div class='ui-block-a'>"+
-				      "<div class='ui-body ui-body-d referto-top'>"+
-				        Application.votoTopPossibile(referto)+
-                "<div id='top-locale-selected'></div>"+
-                "<div id='top-ospite-selected'></div>"+
-  				    "</div>"+
-  				  "</div>"+
-  			  "</div>"+
-  			  "<div id='form-voto-top' class='ui-grid-solo none'>"+
-  			    "<div class='ui-block-a'>"+
-  			      "<div class='ui-body ui-body-d'>"+
-                "<select name='top-locale' id='top-locale'>"+Application.selectTop(referto.formazione_locale, "locale")+"</select>"+
-                "<select name='top-ruolo-locale' id='top-ruolo-locale'>"+Application.selectRuoloTop()+"</select>"+
-                "<select name='top-ospite' id='top-ospite'>"+Application.selectTop(referto.formazione_ospite, "ospite")+"</select>"+
-                "<select name='top-ruolo-ospite' id='top-ruolo-ospite'>"+Application.selectRuoloTop()+"</select>"+
-                "<a data-role='button' data-theme='a' id='top-voto-invio'>Invia voto</a>"+
-              "</div>"+
-            "</div>"+
-          "</div>"+
           "<div class='ui-grid-a'>"+
             Application.formazioneReferto(referto.formazione_locale,referto.sanzione_locale)+
             Application.formazioneReferto(referto.formazione_ospite,referto.sanzione_ospite)+
           "</div>"+
         "</div>";
 				$.mobile.loading('hide');
+
+        Application.votoArbitroPossibile(referto);
+        Application.votoTopPossibile(referto);
+
 				$content.html(markup).trigger('create');
 
         $('#button-voto-arbitro').on('click', function(){
-          var url = urlGestionale+'arbitro/esisteGiudizioPerApp?referto_id='+refertoId+'&giudicante_id='+localStorage.getItem('anagrafica_id')+'&callback=?';
           $.mobile.loading('show');
-          $.getJSON(url, function(giudizio) {
-            if(giudizio.msg == 'ok'){
-              markup = '<strong>Voto già espresso</strong>'+
-                '<p>Comportamento: <strong>'+giudizio.giudizio.Comportamento+'</strong></p>'+
-                '<p>Prestazione tecnica: <strong>'+giudizio.giudizio.PrestazioneTecnica+'</strong></p>'+
-                '<p>Prestazione atletica: <strong>'+giudizio.giudizio.PrestazioneAtletica+'</strong></p>';
-              $('#form-voto-arbitro div div').html(markup);
-            }
-            $('#form-voto-arbitro').show();
-            $.mobile.loading('hide');
-          });
+          $(this).hide();
+          $('#form-voto-arbitro').show();
+          $.mobile.loading('hide');
         });
 
         $('#form-voto-arbitro input').on('slidestop', function(){
@@ -374,25 +371,10 @@ var Application = {
         });
 
         $('#button-voto-top').on('click', function(){
-          var url = urlGestionale+'top/esisteTopPerApp?referto_id='+refertoId+'&giudicante_id='+localStorage.getItem('anagrafica_id')+'&callback=?';
           $.mobile.loading('show');
-          $.getJSON(url, function(giudizio) {
-            if(giudizio.msg == 'ok'){
-              votoLocale = (referto.locale_id in giudizio.top) ? giudizio.top[referto.locale_id].anagrafica : "";
-              votoOspite = (referto.ospite_id in giudizio.top) ? giudizio.top[referto.ospite_id].anagrafica : "";
-              votoRuoloLocale = (referto.locale_id in giudizio.top && giudizio.top[referto.locale_id].ruolo != "") ? " - "+giudizio.top[referto.locale_id].ruolo : "";
-              votoRuoloOspite = (referto.ospite_id in giudizio.top && giudizio.top[referto.ospite_id].ruolo != "") ? " - "+giudizio.top[referto.ospite_id].ruolo : "";
-              markup = '<strong>Voto già espresso</strong>'+
-                '<p>Locale: '+votoLocale+votoRuoloLocale+'</p>'+
-                '<p>Ospite: '+votoOspite+votoRuoloOspite+'</p>';
-              $('.referto-top').html(markup);
-            }
-            else
-            {
-              $('#form-voto-top').show();
-            }
-            $.mobile.loading('hide');
-          });
+          $(this).hide();
+          $('#form-voto-top').show();
+          $.mobile.loading('hide');
         });
 
         $('#top-voto-invio').on('click', function(){
@@ -543,38 +525,66 @@ var Application = {
 
 //Voto Arbitro possibile
   votoArbitroPossibile: function(referto) {
-    aa = referto.data.substr(0,4);
-    mm = parseInt(referto.data.substr(5,2))-1;
-    gg = referto.data.substr(8,2);
-    hh = referto.inizioprimotempo.substr(0,2) || 20;
-    ii = referto.inizioprimotempo.substr(3,2) || 0;
-
-    var now = new Date().getTime(),
-      refertoData = new Date(aa,mm,gg,hh,ii).getTime(),
-      markup = "";
-    if(localStorage.getItem('anagrafica_id') == null) markup = "<strong>Non puoi votare l'arbitro perchè non hai effettuato il login. Solo i tesserati LCFC possono esprimere un voto all'arbitro.</strong>";
-    else if(now < refertoData) markup = "<strong>Non puoi votare l'arbitro perchè la gara deve ancora essere giocata</strong>";
-    else if(now - refertoData < 3*24*60*60*1000) markup = "<a data-role='button' id='button-voto-arbitro' class='referto-voto'>Vota Arbitro</a>";
-    else markup = "<strong>Non è più possibile votare l'arbitro.</strong>";
-    return markup;
+    var url = urlGestionale+'arbitro/esisteGiudizioPerApp?referto_id='+referto.id+'&giudicante_id='+localStorage.getItem('anagrafica_id')+'&callback=?';
+    $.mobile.loading('show');
+    $.getJSON(url, function(giudizio) {
+      if(giudizio.msg == 'ok'){
+        markup = '<strong>Voto arbitro già espresso</strong>'+
+          '<p>Comportamento: <strong>'+giudizio.giudizio.Comportamento+'</strong></p>'+
+          '<p>Prestazione tecnica: <strong>'+giudizio.giudizio.PrestazioneTecnica+'</strong></p>'+
+          '<p>Prestazione atletica: <strong>'+giudizio.giudizio.PrestazioneAtletica+'</strong></p>';
+          $('.referto-arbitro-voto').html(markup);
+      } else {
+        aa = referto.data != null ? referto.data.substr(0,4) : "";
+        mm = referto.data != null ? parseInt(referto.data.substr(5,2))-1 : "";
+        gg = referto.data != null ? referto.data.substr(8,2) : "";
+        hh = referto.inizioprimotempo.substr(0,2) || 20;
+        ii = referto.inizioprimotempo.substr(3,2) || 0;
+        var now = new Date().getTime(),
+          refertoData = new Date(aa,mm,gg,hh,ii).getTime(),
+          markup = "";
+        if(localStorage.getItem('anagrafica_id') == null) markup = "<strong>Non puoi votare l'arbitro perchè non hai effettuato il login. Solo i tesserati LCFC possono esprimere un voto all'arbitro.</strong>";
+        else if(now < refertoData) markup = "<strong>Non puoi votare l'arbitro perchè la gara deve ancora essere giocata</strong>";
+        else if(now - refertoData < 3*24*60*60*1000) { $("#button-voto-arbitro").removeClass('none'); }
+        else markup = "<strong>Non è più possibile votare l'arbitro.</strong>";
+        $('.referto-arbitro-voto').html(markup);
+      }
+      $.mobile.loading('hide');
+    });
   }, //Voto Arbitro possibile fine
 
 //Voto Top possibile
   votoTopPossibile: function(referto) {
-    aa = referto.data.substr(0,4);
-    mm = parseInt(referto.data.substr(5,2))-1;
-    gg = referto.data.substr(8,2);
-    hh = referto.inizioprimotempo.substr(0,2) || 20;
-    ii = referto.inizioprimotempo.substr(3,2) || 0;
+    var url = urlGestionale+'top/esisteTopPerApp?referto_id='+referto.id+'&giudicante_id='+localStorage.getItem('anagrafica_id')+'&callback=?';
+    $.mobile.loading('show');
+    $.getJSON(url, function(giudizio) {
+      var markup = "";
+      if(giudizio.msg == 'ok'){
+        votoLocale = (referto.locale_id in giudizio.top) ? giudizio.top[referto.locale_id].anagrafica : "";
+        votoOspite = (referto.ospite_id in giudizio.top) ? giudizio.top[referto.ospite_id].anagrafica : "";
+        votoRuoloLocale = (referto.locale_id in giudizio.top && giudizio.top[referto.locale_id].ruolo != "") ? " - "+giudizio.top[referto.locale_id].ruolo : "";
+        votoRuoloOspite = (referto.ospite_id in giudizio.top && giudizio.top[referto.ospite_id].ruolo != "") ? " - "+giudizio.top[referto.ospite_id].ruolo : "";
+        markup = '<strong>Voto top già espresso</strong>'+
+          '<p>Locale: '+votoLocale+votoRuoloLocale+'</p>'+
+          '<p>Ospite: '+votoOspite+votoRuoloOspite+'</p>';
+        $('.referto-top-voto').html(markup);
+      } else {
+        aa = referto.data != null ? referto.data.substr(0,4) : "";
+        mm = referto.data != null ? parseInt(referto.data.substr(5,2))-1 : "";
+        gg = referto.data != null ? referto.data.substr(8,2) : "";
+        hh = referto.inizioprimotempo.substr(0,2) || 20;
+        ii = referto.inizioprimotempo.substr(3,2) || 0;
 
-    var now = new Date().getTime(),
-      refertoData = new Date(aa,mm,gg,hh,ii).getTime(),
-      markup = "";
-    if(localStorage.getItem('anagrafica_id') == null) markup = "<strong>Non puoi votare i top perchè non hai effettuato il login. Solo i tesserati LCFC possono esprimere un voto per i top.</strong>";
-    else if(now < refertoData) markup = "<strong>Non puoi votare i top perchè la gara deve ancora essere giocata</strong>";
-    else if(now - refertoData < 1000*24*60*60*1000) markup = "<a data-role='button' id='button-voto-top' class='referto-voto'>Vota TOP</a>";
-    else markup = "<strong>Non è più possibile votare i top.</strong>";
-    return markup;
+        var now = new Date().getTime(),
+          refertoData = new Date(aa,mm,gg,hh,ii).getTime();
+        if(localStorage.getItem('anagrafica_id') == null) markup = "<strong>Non puoi votare i top perchè non hai effettuato il login. Solo i tesserati LCFC possono esprimere un voto per i top.</strong>";
+        else if(now < refertoData) markup = "<strong>Non puoi votare i top perchè la gara deve ancora essere giocata</strong>";
+        else if(now - refertoData < 1000*24*60*60*1000) { markup = ""; $("#button-voto-top").removeClass('none'); }
+        else markup = "<strong>Non è più possibile votare i top.</strong>";
+        $('.referto-top-voto').html(markup).removeClass('none');
+      }
+      $.mobile.loading('hide');
+    });
   }, //Voto Top possibile fine
 
 //Gara sospesa/rinviata
@@ -1610,7 +1620,7 @@ var Application = {
   initComunicatoUfficiale: function(){
     Utility.internetConnection();
     $.mobile.loading('show');
-    var categoria = localStorage.getItem('comunicato_categoria') || '61';
+    var categoria = localStorage.getItem('comunicato_categoria') || '62';
     $("#comunicato-anno option[value="+categoria+"]").attr('selected','selected');//.trigger('create');
     $.getJSON('http://www.lcfc.it/?json=get_category_posts&id='+categoria+'&count=100&callback=?', function(data) {
       var markup = '<h3>Comunicati '+$("#comunicato-anno option:selected").text()+'</h3>',
@@ -1677,6 +1687,7 @@ var Application = {
 
     if(localStorage.getItem('anagrafica_id') !== null) {
       $('#login-form').hide();
+      $('#show-login').removeClass('none');
     }
 
     var url = urlGestionale+'top/ruoloTopPerApp?callback=?';
@@ -1703,6 +1714,7 @@ var Application = {
             $('#login-descrizione').html("<p id='error-login'>"+anagrafica.error+"</p>");
           } else {
             $('#login-form form').hide();
+            $('#show-login').removeClass('none');
             markup += "<p>Ciao "+anagrafica.anagrafica.Nome+" "+anagrafica.anagrafica.Cognome+", ";
             tesserati = Object.keys(anagrafica.tesserato).length;
             tesserato = anagrafica.tesserato;
@@ -1877,40 +1889,6 @@ var Application = {
     }
   },
 
-  // setStatistichePagine: function() {
-  //   var page = $.mobile.activePage.attr('id');
-  //   var statistiche = localStorage.getItem('statistiche') == null ? {} : JSON.parse(localStorage.getItem('statistiche'));
-  //   statistiche[page] = (statistiche[page] || 0) + 1;
-  //   localStorage.setItem('statistiche', JSON.stringify(statistiche));
-  // },
-
-  // sendStatistichePagine: function() {
-  //   if(new Date().getTime() - localStorage.getItem('statistiche_datetime') > 5*60*60*1000) {
-  //     var stats = localStorage.getItem('statistiche'),
-  //       cellulare = typeof device === "undefined" ? '0' : device.uuid;
-  //     $.ajax({
-  //       url: urlGestionale+'statistica/importStatisticheApp',
-  //       data: {
-  //         cellulare: MD5(cellulare), 
-  //         stats: stats,
-  //         secret: MD5(MD5(cellulare)+secret),
-  //       },
-  //       type: 'post',
-  //       crossDomain: true,
-  //       dataType: 'jsonp',
-  //       success: function(data) {
-  //         localStorage.removeItem('statistiche');
-  //         localStorage.removeItem('statistiche_datetime');
-  //         Application.setStatistichePagine();
-  //         localStorage.setItem('statistiche_datetime', new Date().getTime());
-  //       },
-  //       error: function(e) {
-  //         console.log(e);
-  //       },
-  //     });
-  //   }
-  // },
-
   initMenu: function() {
     $.mobile.loading('hide');
     // $.get('menu.html',function(data){$(":jqmData(role=page)").append(data).trigger('create');});
@@ -2007,7 +1985,6 @@ Application.initialize();
 $(document).on('pageshow','.page',function() {Application.initMenu();
   page = $(this).attr("id")+".html";
   if(page == "index.html") page = "home.html";
-  // Application.setStatistichePagine();
   if( typeof window.gaPlugin  != "undefined")
     window.gaPlugin.trackPage(function(){}, function(){}, page);
   });
