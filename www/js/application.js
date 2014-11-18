@@ -1112,7 +1112,7 @@ var Application = {
      markup = "<select name='campionato_id' id='campionato_id'>";
        markup+= "<option>Campionato</option>";
      markup+= "</select>";
-     markup+= "<select name='girone_id' id='girone_id'>";
+     markup+= "<select name='girone_id' id='girone_id' disabled>";
        markup+= "<option>Girone</option>";
      markup+= "</select>";
 
@@ -1121,7 +1121,6 @@ var Application = {
        for(r in result['campionati']){
          var profondita = "";
          for(p=0;p<result['campionati'][r].Profondita;p++) profondita += "- ";
-         // html += "<option value='"+result['campionati'][r].Id+"'>"+profondita+result['campionati'][r].Abbreviazione+"</option>";
          html += "<option value='"+result['campionati'][r].Id+"'>"+profondita+result['campionati'][r].Nome+"</option>";
        }
        $("select#campionato_id").find('option').remove().end().append(html).trigger('create');
@@ -1136,6 +1135,7 @@ var Application = {
          $("select#girone_id").find('option').remove().end().append(html).trigger('create');
          e.preventDefault();
        });
+       $("select#girone_id").selectmenu('enable');
      });
 
      $("#risultati, #classifica, #classifica-marcatori, #calendario, #arbitro-giudizio").on('change', '#girone_id',function(e, data){
